@@ -60,4 +60,4 @@ Add new connectors by creating JSON files following the schema in `src/utils/cab
 
 ## License
 
-MIT
+[MIT](LICENSE)
