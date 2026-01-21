@@ -1,0 +1,99 @@
+{
+  "type": "USB-B",
+  "full_name": "USB Standard-B",
+  "standard_body": "USB-IF",
+  "common_names": ["USB-B", "USB Type-B", "Printer USB"],
+  "protocols": {
+    "USB 1.1": {
+      "version": "1.1",
+      "data_rate": "12 Mbps",
+      "data_rate_mbps": 12,
+      "power_delivery": "2.5W (500mA @ 5V)",
+      "features": ["Full Speed"],
+      "cable_requirements": "Any USB-B cable",
+      "max_length": "5m"
+    },
+    "USB 2.0": {
+      "version": "2.0",
+      "data_rate": "480 Mbps",
+      "data_rate_mbps": 480,
+      "power_delivery": "2.5W (500mA @ 5V)",
+      "features": ["Hi-Speed"],
+      "cable_requirements": "Any USB-B cable",
+      "max_length": "5m"
+    },
+    "USB 3.2 Gen 1": {
+      "version": "3.2 Gen 1 (formerly USB 3.0)",
+      "data_rate": "5 Gbps",
+      "data_rate_mbps": 5000,
+      "power_delivery": "4.5W (900mA @ 5V)",
+      "features": ["SuperSpeed", "Different connector shape"],
+      "cable_requirements": "USB 3.0 Type-B cable (has extra pins)",
+      "max_length": "3m"
+    },
+    "USB 3.2 Gen 2": {
+      "version": "3.2 Gen 2",
+      "data_rate": "10 Gbps",
+      "data_rate_mbps": 10000,
+      "power_delivery": "4.5W (900mA @ 5V)",
+      "features": ["SuperSpeed+"],
+      "cable_requirements": "USB 3.2 Gen 2 Type-B cable",
+      "max_length": "1m"
+    }
+  },
+  "connector": {
+    "pins": 9,
+    "rows": 2,
+    "width": 11.0,
+    "height": 10.4,
+    "depth": 16.0,
+    "reversible": false,
+    "shape": "square with beveled top corners",
+    "unit": "mm"
+  },
+  "electrical": {
+    "voltage_max": 5,
+    "current_max": 0.9,
+    "power_max": 4.5,
+    "impedance": "90Ω differential (SuperSpeed)"
+  },
+  "compatibility": {
+    "backwards": ["USB 1.0", "USB 1.1"],
+    "forwards": ["USB 3.2 Gen 2"],
+    "adapters_to": ["USB-A (as part of cable)", "USB-C"],
+    "adapters_from": ["USB-A (as part of cable)", "USB-C"]
+  },
+  "common_devices": [
+    "Printers",
+    "Scanners",
+    "External hard drives (older)",
+    "Audio interfaces",
+    "MIDI controllers",
+    "Docking stations",
+    "USB hubs (upstream port)",
+    "Some monitors (USB hub feature)"
+  ],
+  "confusion_points": [
+    "USB 3.0 Type-B has a completely different shape than USB 2.0 Type-B - the top is extended with extra pins",
+    "USB 2.0 Type-B cables fit into USB 3.0 Type-B ports, but only at USB 2.0 speeds",
+    "USB 3.0 Type-B cables do NOT fit into USB 2.0 Type-B ports",
+    "USB-B is always the 'device' end - the host side is USB-A or USB-C",
+    "Many people call this 'printer USB' but it's used on many other devices",
+    "USB-B is being phased out - newer devices use USB-C for the device port"
+  ],
+  "buying_guide": "For printers and most peripherals, any USB-A to USB-B cable works. For USB 3.0 devices (external drives, audio interfaces), check if the port has the extended USB 3.0 shape and get a matching cable. USB 2.0 cables are cheaper and more common. Cable quality matters less for USB-B since most devices don't need high power delivery.",
+  "notes": "USB-B was designed to prevent users from connecting two host devices together (which USB doesn't support). The distinct shape makes it obvious which end goes where. While being phased out in favor of USB-C, USB-B remains common on printers, audio equipment, and industrial devices where the larger, more robust connector is actually preferred.",
+  "sources": [
+    {
+      "name": "USB-IF USB 2.0 Specification",
+      "url": "https://www.usb.org/document-library/usb-20-specification",
+      "access_date": "2025-01-15"
+    },
+    {
+      "name": "USB-IF USB 3.2 Specification",
+      "url": "https://www.usb.org/document-library/usb-32-specification-released-september-22-2017-and-ecns",
+      "access_date": "2025-01-15"
+    }
+  ],
+  "last_updated": "2025-01-21"
+}
