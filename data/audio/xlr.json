@@ -1,0 +1,86 @@
+{
+  "type": "XLR",
+  "full_name": "XLR Connector",
+  "standard_body": "IEC 61076-2-103",
+  "common_names": ["XLR", "Cannon connector", "Microphone cable", "3-pin XLR"],
+  "protocols": {
+    "3-pin XLR (Audio)": {
+      "version": "XLR3",
+      "data_rate": "Analog",
+      "data_rate_mbps": 0,
+      "features": ["Balanced audio", "Phantom power capable (48V)", "Locking connector"],
+      "cable_requirements": "XLR cable with proper shielding",
+      "max_length": "100m+ for balanced audio"
+    },
+    "5-pin XLR (DMX)": {
+      "version": "XLR5",
+      "data_rate": "250 kbps",
+      "data_rate_mbps": 0.25,
+      "features": ["DMX512 lighting control", "Digital protocol", "Daisy-chainable"],
+      "cable_requirements": "DMX-rated cable (110Ω impedance)",
+      "max_length": "300m per run"
+    },
+    "4-pin XLR (Power/Intercom)": {
+      "version": "XLR4",
+      "data_rate": "Analog/DC",
+      "data_rate_mbps": 0,
+      "features": ["DC power delivery", "Intercom systems", "Camera power"],
+      "cable_requirements": "4-pin XLR cable",
+      "max_length": "Varies by application"
+    }
+  },
+  "connector": {
+    "pins": 3,
+    "width": 19.0,
+    "height": 19.0,
+    "depth": 45.0,
+    "reversible": false,
+    "shape": "circular with key notch",
+    "unit": "mm"
+  },
+  "electrical": {
+    "voltage_max": 48,
+    "current_max": 0.015,
+    "impedance": "50-600Ω (audio), 110Ω (DMX)"
+  },
+  "compatibility": {
+    "backwards": [],
+    "forwards": [],
+    "adapters_to": ["6.35mm TRS", "3.5mm (active)", "RCA (not recommended)"],
+    "adapters_from": ["6.35mm TRS", "3.5mm (active)"]
+  },
+  "common_devices": [
+    "Professional microphones",
+    "Audio interfaces",
+    "Mixing consoles",
+    "PA systems",
+    "Stage monitors",
+    "Lighting fixtures (DMX)",
+    "Professional video cameras",
+    "Intercom systems"
+  ],
+  "confusion_points": [
+    "XLR cables and DMX cables use the same connector but have different impedance - don't mix them for long runs",
+    "3-pin XLR is standard for audio, but DMX lighting officially uses 5-pin (though 3-pin is commonly used)",
+    "Male XLR is typically output, female XLR is typically input - opposite of most connectors",
+    "Phantom power (48V) on XLR can damage some ribbon microphones and unbalanced equipment",
+    "XLR to RCA/3.5mm adapters lose the balanced signal benefit and may introduce noise",
+    "Not all XLR cables are equal - microphone cables and DMX cables have different specifications",
+    "AES/EBU digital audio uses XLR but requires 110Ω cables, not standard mic cables"
+  ],
+  "buying_guide": "For microphones and general audio, standard XLR cables work fine. For DMX lighting, use proper DMX-rated cables (110Ω) especially for long runs - mic cables may work short-term but can cause flickering. Look for cables with Neutrik or similar quality connectors. Avoid adapting XLR to unbalanced connections when possible.",
+  "notes": "XLR was invented by James H. Cannon (hence 'Cannon connector') and the name comes from the X series with a Latch and Rubber compound. It became the professional audio standard due to its balanced design (which rejects interference), locking mechanism, and durability. The gendered connector design (male output, female input) allows daisy-chaining without adapter cables.",
+  "sources": [
+    {
+      "name": "IEC 61076-2-103",
+      "url": "https://webstore.iec.ch/publication/4436",
+      "access_date": "2025-01-15"
+    },
+    {
+      "name": "Shure Microphone Techniques",
+      "url": "https://www.shure.com/en-US/microphones",
+      "access_date": "2025-01-15"
+    }
+  ],
+  "last_updated": "2025-01-21"
+}

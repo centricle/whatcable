@@ -1,0 +1,94 @@
+{
+  "type": "3.5mm",
+  "full_name": "3.5mm Audio Jack (1/8 inch)",
+  "standard_body": "IEC 60603-11",
+  "common_names": ["3.5mm", "1/8 inch", "Headphone jack", "Aux", "Mini jack"],
+  "protocols": {
+    "TS (Mono)": {
+      "version": "TS",
+      "data_rate": "Analog",
+      "data_rate_mbps": 0,
+      "features": ["Mono audio", "2 conductors (Tip, Sleeve)"],
+      "cable_requirements": "TS cable",
+      "max_length": "3m unbalanced typical"
+    },
+    "TRS (Stereo)": {
+      "version": "TRS",
+      "data_rate": "Analog",
+      "data_rate_mbps": 0,
+      "features": ["Stereo audio", "3 conductors (Tip, Ring, Sleeve)", "Can carry balanced mono"],
+      "cable_requirements": "TRS cable",
+      "max_length": "3m unbalanced, longer for balanced"
+    },
+    "TRRS (Stereo + Mic)": {
+      "version": "TRRS",
+      "data_rate": "Analog",
+      "data_rate_mbps": 0,
+      "features": ["Stereo audio + microphone", "4 conductors", "Headset support"],
+      "cable_requirements": "TRRS cable",
+      "max_length": "2m typical"
+    },
+    "TRRRS (Stereo + Mic + Controls)": {
+      "version": "TRRRS",
+      "data_rate": "Analog",
+      "data_rate_mbps": 0,
+      "features": ["Stereo audio + microphone + extra channel", "5 conductors", "Rare"],
+      "cable_requirements": "TRRRS cable",
+      "max_length": "2m typical"
+    }
+  },
+  "connector": {
+    "pins": 4,
+    "width": 3.5,
+    "height": 3.5,
+    "depth": 14.0,
+    "reversible": false,
+    "shape": "cylindrical",
+    "unit": "mm"
+  },
+  "electrical": {
+    "voltage_max": 1,
+    "impedance": "16-600Ω typical (headphones)"
+  },
+  "compatibility": {
+    "backwards": [],
+    "forwards": [],
+    "adapters_to": ["6.35mm (1/4\")", "RCA", "USB audio", "Bluetooth (transmitter)"],
+    "adapters_from": ["6.35mm (1/4\")", "USB audio", "Lightning", "USB-C"]
+  },
+  "common_devices": [
+    "Headphones",
+    "Earbuds",
+    "Smartphones (older models)",
+    "Laptops",
+    "Desktop computers",
+    "Portable audio players",
+    "Car stereos (aux input)",
+    "Gaming headsets",
+    "Microphones (consumer)"
+  ],
+  "confusion_points": [
+    "TRS (3 conductors) and TRRS (4 conductors) look nearly identical but aren't fully compatible",
+    "TRRS has two different wiring standards: CTIA (Apple/most phones) and OMTP (older Nokia/Sony) - mic and ground are swapped",
+    "A TRS plug in a TRRS jack works for audio but no microphone",
+    "A TRRS plug in a TRS jack may have audio issues or no sound in one channel",
+    "Balanced TRS is different from stereo TRS - same connector, different wiring purpose",
+    "Many phones have removed the 3.5mm jack - check before assuming your device has one",
+    "Impedance mismatch between source and headphones affects volume and sound quality"
+  ],
+  "buying_guide": "For headphones only, TRS cables work fine. For headsets with microphones on phones, get TRRS cables and verify CTIA vs OMTP compatibility (CTIA is standard for Apple and most Android). For audio equipment, match the connector type to your devices. Gold plating is mostly cosmetic - connector quality matters more than plating.",
+  "notes": "The 3.5mm jack has been the universal audio connector for decades, but is being phased out of smartphones in favor of USB-C or wireless. The connector originated from 19th century telephone switchboards (the 6.35mm version) and was miniaturized for transistor radios in the 1950s. Despite being 'obsolete' it remains ubiquitous due to simplicity and universal compatibility.",
+  "sources": [
+    {
+      "name": "IEC 60603-11 Standard",
+      "url": "https://webstore.iec.ch/publication/2712",
+      "access_date": "2025-01-15"
+    },
+    {
+      "name": "Cable Matters - TRS vs TRRS",
+      "url": "https://www.cablematters.com/Blog/Audio-Video/trrs-vs-trs",
+      "access_date": "2025-01-15"
+    }
+  ],
+  "last_updated": "2025-01-21"
+}

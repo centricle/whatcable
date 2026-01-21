@@ -1,0 +1,78 @@
+{
+  "type": "6.35mm",
+  "full_name": "6.35mm Audio Jack (1/4 inch)",
+  "standard_body": "IEC 60603-11",
+  "common_names": ["1/4 inch", "Quarter inch", "Phone plug", "Guitar cable", "Instrument cable"],
+  "protocols": {
+    "TS (Mono/Unbalanced)": {
+      "version": "TS",
+      "data_rate": "Analog",
+      "data_rate_mbps": 0,
+      "features": ["Mono unbalanced audio", "2 conductors", "Standard for instruments"],
+      "cable_requirements": "TS instrument cable",
+      "max_length": "7.5m typical for instruments"
+    },
+    "TRS (Stereo/Balanced)": {
+      "version": "TRS",
+      "data_rate": "Analog",
+      "data_rate_mbps": 0,
+      "features": ["Stereo unbalanced OR mono balanced", "3 conductors", "Common on headphones and pro audio"],
+      "cable_requirements": "TRS cable",
+      "max_length": "30m+ for balanced signals"
+    }
+  },
+  "connector": {
+    "pins": 3,
+    "width": 6.35,
+    "height": 6.35,
+    "depth": 31.0,
+    "reversible": false,
+    "shape": "cylindrical",
+    "unit": "mm"
+  },
+  "electrical": {
+    "voltage_max": 2,
+    "impedance": "Varies: Hi-Z (~1MΩ instruments), Lo-Z (50-600Ω pro audio)"
+  },
+  "compatibility": {
+    "backwards": [],
+    "forwards": [],
+    "adapters_to": ["3.5mm", "XLR (active/passive)", "RCA"],
+    "adapters_from": ["3.5mm", "XLR"]
+  },
+  "common_devices": [
+    "Electric guitars and basses",
+    "Guitar amplifiers",
+    "Audio interfaces",
+    "Mixing consoles",
+    "Studio monitors",
+    "Professional headphones",
+    "Keyboard/synthesizers",
+    "Effect pedals",
+    "DJ equipment"
+  ],
+  "confusion_points": [
+    "TS and TRS look almost identical but serve different purposes - TS for instruments, TRS for balanced or stereo",
+    "A TRS cable on an instrument can cause noise or signal loss - use TS for guitars/basses",
+    "Balanced TRS is NOT stereo - it's mono with noise cancellation for long cable runs",
+    "Guitar cables (instrument cables) have different shielding than patch cables - don't use speaker cables for instruments",
+    "Speaker cables look like instrument cables but have no shielding - NEVER use for line-level signals",
+    "Headphone outputs are stereo TRS, not balanced - don't confuse with balanced line outputs",
+    "Hi-Z (high impedance) instrument inputs are different from line-level TRS inputs"
+  ],
+  "buying_guide": "For guitars and instruments, get TS cables with good shielding (braided shield is quieter than spiral). For studio monitors and balanced connections, use TRS cables. For headphones, any TRS cable works. Avoid extremely cheap cables - poor shielding causes noise. Cable capacitance affects guitar tone on long runs.",
+  "notes": "The 6.35mm jack dates back to 1878 telephone switchboards, making it one of the oldest electrical connectors still in common use. Its durability and simplicity have kept it standard in professional audio and musical instruments. While consumer electronics moved to 3.5mm, the 1/4\" connector remains dominant in professional audio where its larger size allows for more robust connections.",
+  "sources": [
+    {
+      "name": "IEC 60603-11 Standard",
+      "url": "https://webstore.iec.ch/publication/2712",
+      "access_date": "2025-01-15"
+    },
+    {
+      "name": "Shure Audio Basics",
+      "url": "https://www.shure.com/en-US/performance-production/louder/audio-electronics-basics",
+      "access_date": "2025-01-15"
+    }
+  ],
+  "last_updated": "2025-01-21"
+}

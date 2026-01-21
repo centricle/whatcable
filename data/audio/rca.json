@@ -1,0 +1,96 @@
+{
+  "type": "RCA",
+  "full_name": "RCA Connector",
+  "standard_body": "None (de facto standard)",
+  "common_names": ["RCA", "Phono", "Cinch", "A/V cables", "Red/White/Yellow cables"],
+  "protocols": {
+    "Analog Audio (Stereo)": {
+      "version": "Analog Stereo",
+      "data_rate": "Analog",
+      "data_rate_mbps": 0,
+      "features": ["Unbalanced stereo audio", "Red = Right, White = Left"],
+      "cable_requirements": "RCA audio cable",
+      "max_length": "5m typical for line-level"
+    },
+    "Composite Video": {
+      "version": "Composite",
+      "data_rate": "Analog",
+      "data_rate_mbps": 0,
+      "video_support": ["480i", "576i"],
+      "features": ["Yellow connector", "SD video only"],
+      "cable_requirements": "75Ω video-rated RCA cable",
+      "max_length": "15m with quality cable"
+    },
+    "Component Video": {
+      "version": "Component",
+      "data_rate": "Analog",
+      "data_rate_mbps": 0,
+      "video_support": ["480i", "480p", "720p", "1080i", "1080p"],
+      "features": ["Y/Pb/Pr color separation", "Green/Blue/Red connectors", "HD capable"],
+      "cable_requirements": "75Ω video-rated RCA cables (matched set)",
+      "max_length": "15m with quality cable"
+    },
+    "S/PDIF Coaxial": {
+      "version": "S/PDIF",
+      "data_rate": "3.072 Mbps",
+      "data_rate_mbps": 3.072,
+      "features": ["Digital audio", "PCM stereo", "Compressed 5.1 (Dolby/DTS)", "Orange connector"],
+      "cable_requirements": "75Ω digital coaxial cable",
+      "max_length": "10m"
+    }
+  },
+  "connector": {
+    "pins": 1,
+    "width": 8.0,
+    "height": 8.0,
+    "depth": 20.0,
+    "reversible": false,
+    "shape": "circular with center pin",
+    "unit": "mm"
+  },
+  "electrical": {
+    "voltage_max": 2,
+    "impedance": "75Ω (video/digital), varies for audio"
+  },
+  "compatibility": {
+    "backwards": [],
+    "forwards": [],
+    "adapters_to": ["3.5mm", "6.35mm", "XLR (active)", "HDMI (active converter)"],
+    "adapters_from": ["3.5mm", "6.35mm", "HDMI (active converter)"]
+  },
+  "common_devices": [
+    "Home theater receivers",
+    "DVD/Blu-ray players",
+    "Turntables",
+    "CD players",
+    "Older game consoles",
+    "VCRs",
+    "Soundbars",
+    "Subwoofers",
+    "Older TVs"
+  ],
+  "confusion_points": [
+    "Audio RCA cables and video RCA cables may look identical but video cables need 75Ω impedance",
+    "S/PDIF digital (orange) uses the same connector as analog audio but carries digital data",
+    "Composite video (yellow) cannot carry HD - you need component (green/blue/red) for that",
+    "Component video uses 3 cables (Y/Pb/Pr) and is NOT the same as composite despite similar colors",
+    "Phono inputs on turntables/receivers include a ground wire - regular RCA inputs don't",
+    "Red/White is stereo audio; add yellow for composite video; green/blue/red is component video",
+    "Subwoofer cables are mono RCA but may be labeled differently"
+  ],
+  "buying_guide": "For audio, basic RCA cables work fine for short runs. For video (composite/component) or S/PDIF digital, use 75Ω rated cables. Shielding quality matters more than gold plating. For turntables, use cables with a separate ground wire if your equipment needs it. Color coding is just convention - electrically the cables are often identical.",
+  "notes": "RCA connectors were introduced by the Radio Corporation of America in the 1930s for internal phonograph connections. They became the consumer A/V standard through the 20th century. While being replaced by HDMI and digital connections, RCA remains common on audio equipment, especially subwoofers, turntables, and home theater receivers. The connector's simplicity is both its strength and weakness - easy to use but unbalanced and prone to interference.",
+  "sources": [
+    {
+      "name": "IEC 60268-12 (Audio connectors)",
+      "url": "https://webstore.iec.ch/publication/1226",
+      "access_date": "2025-01-15"
+    },
+    {
+      "name": "Sony S/PDIF Specification",
+      "url": "https://en.wikipedia.org/wiki/S/PDIF",
+      "access_date": "2025-01-15"
+    }
+  ],
+  "last_updated": "2025-01-21"
+}
