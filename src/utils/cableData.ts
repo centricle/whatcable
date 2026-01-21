@@ -137,6 +137,68 @@ export function getMaxPower(cable: CableSpec): number | undefined {
   return cable.electrical.power_max;
 }
 
+export function getCableBySlug(slug: string): { cable: CableSpec; category: string } | null {
+  const allCategories = getAllCategories();
+  for (const cat of allCategories) {
+    for (const cable of cat.cables) {
+      const cableSlug = cable.type.toLowerCase().replace(/[^a-z0-9]/g, '-');
+      if (cableSlug === slug) {
+        return { cable, category: cat.slug };
+      }
+    }
+  }
+  return null;
+}
+
+export function getNormalizedPowerWatts(cable: CableSpec): number | null {
+  // First check electrical.power_max
+  if (cable.electrical.power_max) {
+    return cable.electrical.power_max;
+  }
+
+  // Parse power from protocol power_delivery strings
+  let maxPower = 0;
+  for (const protocol of Object.values(cable.protocols)) {
+    if (protocol.power_delivery) {
+      // Match patterns like "240W", "100W", "(4000W max)", "(625W max)"
+      const wattMatch = protocol.power_delivery.match(/(\d+)\s*W/i);
+      if (wattMatch) {
+        const watts = parseInt(wattMatch[1], 10);
+        if (watts > maxPower) maxPower = watts;
+      }
+    }
+  }
+
+  return maxPower > 0 ? maxPower : null;
+}
+
+export function getVideoCapabilities(cable: CableSpec): string[] {
+  const capabilities = new Set<string>();
+
+  for (const protocol of Object.values(cable.protocols)) {
+    if (protocol.video_support) {
+      for (const video of protocol.video_support) {
+        capabilities.add(video);
+      }
+    }
+    // Check features for video-related entries
+    for (const feature of protocol.features) {
+      if (feature.toLowerCase().includes('displayport') ||
+          feature.toLowerCase().includes('hdmi') ||
+          feature.toLowerCase().includes('4k') ||
+          feature.toLowerCase().includes('8k')) {
+        capabilities.add(feature);
+      }
+    }
+  }
+
+  return Array.from(capabilities);
+}
+
+export function hasVideoSupport(cable: CableSpec): boolean {
+  return getVideoCapabilities(cable).length > 0;
+}
+
 export function searchCables(query: string): CableSpec[] {
   const allCategories = getAllCategories();
   const allCables = allCategories.flatMap(cat => cat.cables);
