@@ -68,43 +68,43 @@ const connectors: ConnectorInfo[] = [
     {connectors.map((connector) => (
       <button
         type="button"
-        class="connector-btn group flex flex-col items-center p-4 border-2 border-gray-200 bg-white hover:border-blue-500 hover:bg-blue-50 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        class="connector-btn group flex flex-col items-center p-4 rounded-2xl border-2 border-border bg-card hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
         data-connector={connector.id}
         aria-label={`Identify ${connector.name} connector`}
       >
         <div class="connector-svg w-20 h-20 mb-3 flex items-center justify-center">
           {connector.id === 'usb-c' && (
             <svg viewBox="0 0 80 40" class="w-full h-auto" aria-hidden="true">
-              <rect x="5" y="10" width="70" height="20" rx="10" ry="10" fill="none" stroke="currentColor" stroke-width="3" class="text-gray-600 group-hover:text-blue-600"/>
-              <rect x="15" y="16" width="50" height="8" rx="2" fill="currentColor" class="text-gray-400 group-hover:text-blue-400"/>
+              <rect x="5" y="10" width="70" height="20" rx="10" ry="10" fill="none" stroke="currentColor" stroke-width="3"/>
+              <rect x="15" y="16" width="50" height="8" rx="2" fill="currentColor" class="text-muted"/>
             </svg>
           )}
           {connector.id === 'usb-a' && (
             <svg viewBox="0 0 80 50" class="w-full h-auto" aria-hidden="true">
-              <rect x="5" y="10" width="70" height="30" rx="2" fill="none" stroke="currentColor" stroke-width="3" class="text-gray-600 group-hover:text-blue-600"/>
-              <rect x="12" y="17" width="56" height="16" fill="currentColor" class="text-gray-400 group-hover:text-blue-400"/>
+              <rect x="5" y="10" width="70" height="30" rx="2" fill="none" stroke="currentColor" stroke-width="3"/>
+              <rect x="12" y="17" width="56" height="16" fill="currentColor" class="text-muted"/>
             </svg>
           )}
           {connector.id === 'usb-b' && (
             <svg viewBox="0 0 70 70" class="w-full h-auto" aria-hidden="true">
-              <path d="M10 15 L20 5 L50 5 L60 15 L60 65 L10 65 Z" fill="none" stroke="currentColor" stroke-width="3" class="text-gray-600 group-hover:text-blue-600"/>
-              <rect x="18" y="25" width="34" height="30" fill="currentColor" class="text-gray-400 group-hover:text-blue-400"/>
+              <path d="M10 15 L20 5 L50 5 L60 15 L60 65 L10 65 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+              <rect x="18" y="25" width="34" height="30" fill="currentColor" class="text-muted"/>
             </svg>
           )}
           {connector.id === 'micro-usb' && (
             <svg viewBox="0 0 80 30" class="w-full h-auto" aria-hidden="true">
-              <path d="M10 5 L70 5 L65 25 L15 25 Z" fill="none" stroke="currentColor" stroke-width="3" class="text-gray-600 group-hover:text-blue-600"/>
-              <rect x="20" y="10" width="40" height="10" fill="currentColor" class="text-gray-400 group-hover:text-blue-400"/>
+              <path d="M10 5 L70 5 L65 25 L15 25 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+              <rect x="20" y="10" width="40" height="10" fill="currentColor" class="text-muted"/>
             </svg>
           )}
           {connector.id === 'mini-usb' && (
             <svg viewBox="0 0 70 45" class="w-full h-auto" aria-hidden="true">
-              <path d="M10 8 L60 8 L55 37 L15 37 Z" fill="none" stroke="currentColor" stroke-width="3" class="text-gray-600 group-hover:text-blue-600"/>
-              <rect x="18" y="14" width="34" height="17" fill="currentColor" class="text-gray-400 group-hover:text-blue-400"/>
+              <path d="M10 8 L60 8 L55 37 L15 37 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+              <rect x="18" y="14" width="34" height="17" fill="currentColor" class="text-muted"/>
             </svg>
           )}
         </div>
-        <span class="text-sm font-medium text-gray-700 group-hover:text-blue-700">{connector.name}</span>
+        <span class="text-sm font-medium text-foreground">{connector.name}</span>
       </button>
     ))}
   </div>
@@ -112,34 +112,31 @@ const connectors: ConnectorInfo[] = [
   <div id="connector-info" class="hidden">
     {connectors.map((connector) => (
       <div class="connector-detail hidden" data-detail={connector.id}>
-        <div class="bg-white border border-gray-200 p-6">
+        <div class="rounded-2xl bg-card border border-border p-6">
           <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
             <div>
-              <h3 class="text-2xl font-bold text-gray-900">{connector.name}</h3>
-              <p class="text-gray-600">{connector.fullName}</p>
+              <h3 class="text-2xl font-bold text-foreground">{connector.name}</h3>
+              <p class="text-muted-foreground">{connector.fullName}</p>
             </div>
             <a
               href={connector.detailUrl}
-              class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors whitespace-nowrap"
+              class="btn btn-primary whitespace-nowrap"
             >
-              Full Specs
-              <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-              </svg>
+              Full Specs →
             </a>
           </div>
 
-          <p class="text-gray-700 mb-6">{connector.description}</p>
+          <p class="text-foreground mb-6">{connector.description}</p>
 
           <div class="grid md:grid-cols-2 gap-6">
             <div>
-              <h4 class="font-semibold text-gray-900 mb-2">Common Devices</h4>
-              <ul class="space-y-1">
+              <h4 class="font-semibold text-foreground mb-2 flex items-center gap-2">
+                <span class="text-primary">✓</span> Common Devices
+              </h4>
+              <ul class="space-y-1 list-none pl-0">
                 {connector.commonDevices.map((device) => (
-                  <li class="flex items-start gap-2 text-gray-600">
-                    <svg class="w-5 h-5 text-green-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                    </svg>
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1">•</span>
                     {device}
                   </li>
                 ))}
@@ -147,13 +144,13 @@ const connectors: ConnectorInfo[] = [
             </div>
 
             <div>
-              <h4 class="font-semibold text-gray-900 mb-2">Watch Out For</h4>
-              <ul class="space-y-1">
+              <h4 class="font-semibold text-foreground mb-2 flex items-center gap-2">
+                <span class="text-warning">⚠</span> Watch Out For
+              </h4>
+              <ul class="space-y-1 list-none pl-0">
                 {connector.limitations.map((limitation) => (
-                  <li class="flex items-start gap-2 text-gray-600">
-                    <svg class="w-5 h-5 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-                    </svg>
+                  <li class="flex items-start gap-2">
+                    <span class="text-warning mt-1">•</span>
                     {limitation}
                   </li>
                 ))}
@@ -165,7 +162,7 @@ const connectors: ConnectorInfo[] = [
     ))}
   </div>
 
-  <p id="picker-prompt" class="text-center text-gray-500">
+  <p id="picker-prompt" class="text-center">
     Click a connector above to learn more about it
   </p>
 </div>
@@ -183,12 +180,12 @@ const connectors: ConnectorInfo[] = [
 
         // Update button states
         buttons.forEach((b) => {
-          b.classList.remove('border-blue-500', 'bg-blue-50');
-          b.classList.add('border-gray-200', 'bg-white');
+          b.classList.remove('border-primary', 'bg-primary/5');
+          b.classList.add('border-border', 'bg-card');
           b.setAttribute('aria-pressed', 'false');
         });
-        btn.classList.remove('border-gray-200', 'bg-white');
-        btn.classList.add('border-blue-500', 'bg-blue-50');
+        btn.classList.remove('border-border', 'bg-card');
+        btn.classList.add('border-primary', 'bg-primary/5');
         btn.setAttribute('aria-pressed', 'true');
 
         // Show info container, hide prompt

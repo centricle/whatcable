@@ -7,13 +7,14 @@ const categories = getAllCategories();
 ---
 
 <BaseLayout>
-  <div class="bg-slate-800 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <!-- Hero Section -->
+  <div class="bg-primary">
+    <div class="max-w-5xl mx-auto px-4 py-16">
       <div class="text-center">
-        <h1 class="text-4xl font-bold text-white sm:text-5xl md:text-6xl">
-          Cable &amp; Connector Database
+        <h1 class="text-4xl font-bold sm:text-5xl md:text-6xl text-balance">
+          Cable & Connector Database
         </h1>
-        <p class="mt-6 max-w-3xl mx-auto text-xl text-blue-100">
+        <p class="mt-6 max-w-2xl mx-auto text-xl-foreground/90">
           Demystifying USB-C, Thunderbolt, HDMI, and more. Because the same connector
           can mean wildly different capabilities.
         </p>
@@ -25,12 +26,12 @@ const categories = getAllCategories();
                 name="q"
                 placeholder="Search cables (e.g. USB-C, Thunderbolt 4, 40 Gbps)..."
                 aria-label="Search cable database"
-                class="w-full px-4 py-3 pr-12 text-gray-900 bg-white border-0 shadow-lg focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                class="w-full px-4 py-3 pr-12 text-foreground bg-card border-0 rounded-xl shadow-lg focus:ring-2 focus:ring-primary-foreground/30 focus:outline-none"
               />
               <button
                 type="submit"
                 aria-label="Search cables"
-                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-900 transition-colors"
+                class="absolute right-3 top-1/2 transform -translate-y-1/2 hover:transition-colors"
               >
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -43,10 +44,11 @@ const categories = getAllCategories();
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
+  <!-- Main Content -->
+  <div class="max-w-5xl mx-auto px-4 pt-12 pb-16">
     <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-gray-900 mb-4">Connector Categories</h2>
-      <p class="text-gray-600 max-w-2xl mx-auto">
+      <h2 class="text-3xl font-bold text-foreground mb-4">Connector Categories</h2>
+      <p class="max-w-2xl mx-auto">
         Browse connectors by category or search for specific types. All data is sourced from official specifications and standards bodies.
       </p>
     </div>
@@ -56,20 +58,17 @@ const categories = getAllCategories();
         <section>
           <div class="mb-8">
             <div class="flex justify-between items-center">
-              <h3 class="text-2xl font-bold text-gray-900">{category.name}</h3>
+              <h3 class="text-2xl font-bold text-foreground">{category.name}</h3>
               {category.cables.length > 0 && (
                 <a
                   href={`/${category.slug}`}
-                  class="mb-3 inline-flex items-center border border-transparent bg-blue-100 px-4 py-2 font-medium whitespace-nowrap text-blue-900 uppercase transition-colors hover:bg-blue-200 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                  class="btn btn-secondary"
                 >
-                  View All
-                  <svg class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
+                  View All →
                 </a>
               )}
             </div>
-            <p class="text-gray-600 mt-1">{category.description}</p>
+            <p class="mt-2">{category.description}</p>
           </div>
 
           {category.cables.length > 0 ? (
@@ -79,12 +78,51 @@ const categories = getAllCategories();
               ))}
             </div>
           ) : (
-            <div class="text-center py-8 border border-dashed border-gray-300 text-gray-500">
+            <div class="text-center py-8 border border-dashed border-border rounded-2xl">
               Coming soon
             </div>
           )}
         </section>
       ))}
     </div>
+
+    <!-- Quick Tips Section -->
+    <section class="mt-16 rounded-2xl border border-border bg-card p-8">
+      <h2 class="mb-6 text-xl font-semibold text-foreground">
+        Quick Shopping Tips
+      </h2>
+      <div class="grid gap-6 sm:grid-cols-3">
+        <div class="flex flex-col gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
+            <span class="text-lg">🔍</span>
+          </div>
+          <h3 class="font-medium text-foreground">Check Both Ends</h3>
+          <p class="text-sm leading-relaxed mb-0">
+            Cables have two connectors. Make sure you know what's on both ends
+            before ordering - USB-A to USB-C is different from USB-C to USB-C.
+          </p>
+        </div>
+        <div class="flex flex-col gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
+            <span class="text-lg">⚡</span>
+          </div>
+          <h3 class="font-medium text-foreground">Not All Cables Are Equal</h3>
+          <p class="text-sm leading-relaxed mb-0">
+            USB-C cables especially vary widely. A cheap cable might charge
+            slowly or not support video output. Look for speed and wattage ratings.
+          </p>
+        </div>
+        <div class="flex flex-col gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
+            <span class="text-lg">?</span>
+          </div>
+          <h3 class="font-medium text-foreground">When in Doubt, USB-C</h3>
+          <p class="text-sm leading-relaxed mb-0">
+            If you're buying new devices, lean toward USB-C. It's the current
+            standard and will be supported for years to come.
+          </p>
+        </div>
+      </div>
+    </section>
   </div>
 </BaseLayout>

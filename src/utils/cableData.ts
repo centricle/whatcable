@@ -84,7 +84,7 @@ export function loadCableData(category: string, type: string): CableSpec | null 
 
 // Custom sort orders for categories where alphabetical doesn't make sense
 const CATEGORY_SORT_ORDER: Record<string, string[]> = {
-  usb: ['USB-C', 'USB-A', 'USB-B', 'Micro-USB', 'Mini-USB'],
+  usb: ['USB-C', 'Lightning', 'USB-A', 'USB-B', 'Micro-USB', 'Mini-USB'],
 };
 
 export function loadCategoryData(category: string): CableSpec[] {

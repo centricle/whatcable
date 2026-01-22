@@ -48,26 +48,26 @@ const description = 'Search the comprehensive cable and connector database by ty
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="bg-background">
+    <div class="max-w-5xl mx-auto px-4 py-8">
       <!-- Header Section -->
       <div class="mb-12">
-        <nav class="flex mb-6" aria-label="Breadcrumb">
-          <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <nav class="mb-6 flex" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center space-x-2 text-sm">
             <li class="inline-flex items-center">
-              <a href="/" class="text-gray-700 hover:underline">Home</a>
+              <a href="/" class="hover:text-foreground transition-colors">Home</a>
             </li>
             <li>
               <div class="flex items-center">
-                <span class="mr-2 text-gray-400">/</span>
-                <span class="text-gray-500 uppercase">Search</span>
+                <span class="mx-2">/</span>
+                <span class="text-foreground font-medium">Search</span>
               </div>
             </li>
           </ol>
         </nav>
 
         <div class="text-center">
-          <h1 class="text-4xl font-bold text-gray-900 mb-4">Search Cables</h1>
+          <h1 class="text-4xl font-bold text-foreground mb-4">Search Cables</h1>
 
           <!-- Search Form -->
           <div class="max-w-2xl mx-auto mb-8">
@@ -77,24 +77,24 @@ const description = 'Search the comprehensive cable and connector database by ty
                 name="q"
                 placeholder="Search by type, protocol, or data rate (e.g. USB-C, Thunderbolt 4, 40 Gbps)..."
                 aria-label="Search cable database by type, protocol, or data rate"
-                class="flex-1 px-4 py-3 text-gray-900 bg-white border border-gray-300 shadow-sm focus:ring-2 focus:ring-blue-300 focus:border-blue-300 focus:outline-none"
+                class="flex-1 px-4 py-3 text-foreground bg-card border border-border rounded-xl shadow-sm focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none"
               />
               <button
                 type="submit"
                 aria-label="Search cables"
-                class="px-6 py-3 bg-slate-800 text-white font-medium hover:bg-blue-700 focus:ring-2 focus:ring-blue-300 focus:outline-none transition-colors"
+                class="btn btn-primary"
               >
                 Search
               </button>
             </form>
           </div>
 
-          <div id="search-status" class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-900" style="display: none;">
+          <div id="search-status" class="inline-flex items-center px-4 py-2 bg-primary/10 rounded-lg" style="display: none;">
             <span class="font-medium" id="search-status-text"></span>
           </div>
 
-          <div id="search-loading" class="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700" style="display: none;">
-            <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-gray-700" fill="none" viewBox="0 0 24 24">
+          <div id="search-loading" class="inline-flex items-center px-4 py-2 bg-secondary rounded-lg" style="display: none;">
+            <svg class="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
@@ -109,22 +109,22 @@ const description = 'Search the comprehensive cable and connector database by ty
 
       <!-- No Results -->
       <div id="no-results" class="text-center py-12" style="display: none;">
-        <div class="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-          <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="mx-auto w-24 h-24 bg-secondary rounded-full flex items-center justify-center mb-6">
+          <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
         </div>
-        <h2 class="text-2xl font-semibold text-gray-900 mb-2">No results found</h2>
-        <p class="text-gray-600 mb-6">
+        <h2 class="text-2xl font-semibold text-foreground mb-2">No results found</h2>
+        <p class="mb-6">
           No cables matching "<span class="font-medium" id="no-results-query"></span>".
         </p>
         <div class="space-y-4">
-          <p class="text-sm text-gray-500">Try searching for:</p>
+          <p class="text-sm">Try searching for:</p>
           <div class="flex flex-wrap justify-center gap-2">
             {['USB-C', 'HDMI', 'Thunderbolt', 'DisplayPort', '40 Gbps', '100W'].map(suggestion => (
               <a
                 href={`/search?q=${encodeURIComponent(suggestion)}`}
-                class="px-3 py-1 bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors text-sm focus:ring-2 focus:ring-gray-300 focus:outline-none"
+                class="filter-chip filter-chip-inactive"
               >
                 {suggestion}
               </a>
@@ -136,13 +136,13 @@ const description = 'Search the comprehensive cable and connector database by ty
       <!-- Default Content (when no search) -->
       <div id="default-content">
         <div class="text-center py-12">
-          <div class="mx-auto w-24 h-24 bg-slate-800 rounded-full flex items-center justify-center mb-6">
-            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="mx-auto w-24 h-24 bg-primary rounded-full flex items-center justify-center mb-6">
+            <svg class="w-12 h-12-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
           </div>
-          <h2 class="text-2xl font-semibold text-gray-900 mb-4">Search the cable database</h2>
-          <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
+          <h2 class="text-2xl font-semibold text-foreground mb-4">Search the cable database</h2>
+          <p class="mb-8 max-w-2xl mx-auto">
             Find cables by type (USB-C, HDMI), protocol (Thunderbolt 4, USB4), data rate (40 Gbps), or power (100W).
             {totalCableCount > 0 && `The database includes ${totalCableCount} connector types with complete specifications.`}
           </p>
@@ -150,15 +150,15 @@ const description = 'Search the comprehensive cable and connector database by ty
           {popularSearches.length > 0 && (
             <div class="space-y-6">
               <div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-3">Popular Searches</h3>
+                <h3 class="text-lg font-semibold text-foreground mb-3">Popular Searches</h3>
                 <div class="flex flex-wrap justify-center gap-3">
                   {popularSearches.map(item => (
                     <a
                       href={`/search?q=${encodeURIComponent(item.term)}`}
-                      class="group border border-gray-300 bg-gray-50 px-4 py-3 transition-colors hover:bg-blue-50"
+                      class="group rounded-xl border border-border bg-card px-4 py-3 transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
                     >
-                      <span class="font-medium text-gray-900 group-hover:text-blue-900">{item.term}</span>
-                      <span class="block text-sm text-gray-500">{item.count} result{item.count !== 1 ? 's' : ''}</span>
+                      <span class="font-medium text-foreground">{item.term}</span>
+                      <span class="block text-sm">{item.count} result{item.count !== 1 ? 's' : ''}</span>
                     </a>
                   ))}
                 </div>
@@ -167,23 +167,23 @@ const description = 'Search the comprehensive cable and connector database by ty
           )}
 
           <div class="mt-8">
-            <h3 class="text-lg font-semibold text-gray-900 mb-3">Browse by Category</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 max-w-5xl mx-auto">
-              <a href="/usb" class="group border border-gray-300 bg-gray-50 p-4 transition-colors hover:bg-blue-50">
-                <h4 class="font-medium text-gray-900 group-hover:text-blue-900">USB</h4>
-                <p class="mb-0 text-sm text-gray-500">USB-C, USB-A, Micro</p>
+            <h3 class="text-lg font-semibold text-foreground mb-3">Browse by Category</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-3xl mx-auto">
+              <a href="/usb" class="group rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
+                <h4 class="font-medium text-foreground">USB</h4>
+                <p class="mb-0 text-sm">USB-C, USB-A, Micro</p>
               </a>
-              <a href="/video" class="group border border-gray-300 bg-gray-50 p-4 transition-colors hover:bg-blue-50">
-                <h4 class="font-medium text-gray-900 group-hover:text-blue-900">Video</h4>
-                <p class="mb-0 text-sm text-gray-500">HDMI, DisplayPort</p>
+              <a href="/video" class="group rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
+                <h4 class="font-medium text-foreground">Video</h4>
+                <p class="mb-0 text-sm">HDMI, DisplayPort</p>
               </a>
-              <a href="/audio" class="group border border-gray-300 bg-gray-50 p-4 transition-colors hover:bg-blue-50">
-                <h4 class="font-medium text-gray-900 group-hover:text-blue-900">Audio</h4>
-                <p class="mb-0 text-sm text-gray-500">3.5mm, XLR, RCA</p>
+              <a href="/audio" class="group rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
+                <h4 class="font-medium text-foreground">Audio</h4>
+                <p class="mb-0 text-sm">3.5mm, XLR, RCA</p>
               </a>
-              <a href="/power" class="group border border-gray-300 bg-gray-50 p-4 transition-colors hover:bg-blue-50">
-                <h4 class="font-medium text-gray-900 group-hover:text-blue-900">Power</h4>
-                <p class="mb-0 text-sm text-gray-500">Barrel, IEC, NEMA</p>
+              <a href="/power" class="group rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
+                <h4 class="font-medium text-foreground">Power</h4>
+                <p class="mb-0 text-sm">Barrel, IEC, NEMA</p>
               </a>
             </div>
           </div>
@@ -245,26 +245,26 @@ const description = 'Search the comprehensive cable and connector database by ty
     function highlightSearchTerm(text, searchTerm) {
       if (!searchTerm || !text) return text;
       const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-      return text.replace(regex, '<mark class="bg-yellow-100 text-gray-900">$1</mark>');
+      return text.replace(regex, '<mark class="bg-warning/30 text-foreground rounded px-0.5">$1</mark>');
     }
 
     function createCableCard(cable, searchTerm) {
       const confusionWarning = cable.confusion_points.length > 0
-        ? `<div class="mb-4 p-2 bg-amber-50 border border-amber-200">
-             <p class="text-amber-800 text-sm">⚠️ ${cable.confusion_points[0]}</p>
+        ? `<div class="mb-4 p-3 bg-warning/10 border border-warning/20 rounded-lg">
+             <p class="text-warning-foreground text-sm mb-0">${cable.confusion_points[0]}</p>
            </div>`
         : '';
 
       return `
-        <div class="bg-white hover:shadow-lg hover:bg-blue-50 transition-shadow duration-200 border border-gray-300">
+        <div class="group relative bg-card border border-border rounded-2xl transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
           <a href="/${cable.categorySlug}/${cable.type.toLowerCase().replace(/[^a-z0-9]/g, '-')}" class="block p-6">
             <div class="flex justify-between items-start mb-4">
               <div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-1">${highlightSearchTerm(cable.type, searchTerm)}</h3>
-                <p class="text-gray-600 text-sm">${highlightSearchTerm(cable.full_name, searchTerm)}</p>
+                <h3 class="text-xl font-semibold text-foreground mb-1">${highlightSearchTerm(cable.type, searchTerm)}</h3>
+                <p class="text-sm mb-0">${highlightSearchTerm(cable.full_name, searchTerm)}</p>
               </div>
               <div class="text-right">
-                <span class="inline-block bg-slate-100 px-2 py-1 text-sm whitespace-nowrap text-slate-700 uppercase">
+                <span class="badge badge-muted">
                   ${cable.standard_body}
                 </span>
               </div>
@@ -272,28 +272,28 @@ const description = 'Search the comprehensive cable and connector database by ty
 
             <div class="grid grid-cols-2 gap-4 mb-4">
               <div>
-                <p class="text-gray-500 text-xs uppercase tracking-wide">Max Speed</p>
-                <p class="text-gray-900 font-medium">${formatDataRate(cable.max_rate_mbps)}</p>
+                <p class="text-xs mb-1">Max Speed</p>
+                <p class="text-foreground font-medium mb-0">${formatDataRate(cable.max_rate_mbps)}</p>
               </div>
               ${cable.max_power ? `
               <div>
-                <p class="text-gray-500 text-xs uppercase tracking-wide">Max Power</p>
-                <p class="text-gray-900 font-medium">${cable.max_power}W</p>
+                <p class="text-xs mb-1">Max Power</p>
+                <p class="text-foreground font-medium mb-0">${cable.max_power}W</p>
               </div>
               ` : ''}
             </div>
 
             <div class="mb-4">
-              <p class="text-gray-500 text-xs uppercase tracking-wide mb-1">Connector</p>
-              <p class="text-gray-900 text-sm">
+              <p class="text-xs mb-1">Connector</p>
+              <p class="text-foreground text-sm mb-0">
                 ${cable.pins} pins
-                ${cable.reversible ? '<span class="text-green-700 ml-1">(reversible)</span>' : ''}
+                ${cable.reversible ? '<span class="ml-1">(reversible)</span>' : ''}
               </p>
             </div>
 
             ${confusionWarning}
 
-            <p class="text-gray-600 text-sm line-clamp-2">${highlightSearchTerm(cable.notes, searchTerm)}</p>
+            <p class="text-sm line-clamp-2 mb-0">${highlightSearchTerm(cable.notes, searchTerm)}</p>
           </a>
         </div>
       `;

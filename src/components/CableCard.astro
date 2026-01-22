@@ -23,71 +23,86 @@ function formatDataRate(mbps: number): string {
 }
 
 const maxPower = getMaxPower(cable);
+
+// Determine if this is a legacy connector (based on confusion points or notes)
+const isLegacy = cable.notes?.toLowerCase().includes('obsolete') ||
+                 cable.notes?.toLowerCase().includes('legacy') ||
+                 cable.notes?.toLowerCase().includes('phased out') ||
+                 cable.confusion_points.some(p => p.toLowerCase().includes('obsolete') || p.toLowerCase().includes('deprecated'));
 ---
 
-<div class="bg-white hover:shadow-lg hover:bg-blue-50 transition-shadow duration-200 border border-gray-300">
+<div class="group relative bg-card border border-border rounded-2xl transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
   <a href={`/${category}/${cable.type.toLowerCase().replace(/[^a-z0-9]/g, '-')}`} class="block p-6" aria-label={`View detailed specifications for ${cable.type}`}>
-    <div class="flex justify-between items-start mb-4">
-      <div>
-        <h3 class="text-xl font-semibold text-gray-900 mb-1">{cable.type}</h3>
-        <p class="text-gray-600">{cable.full_name}</p>
-      </div>
-      <div class="text-right">
-        <span class="inline-block bg-slate-100 px-2 py-1 text-sm whitespace-nowrap text-slate-700 uppercase">
-          {cable.standard_body}
-        </span>
-      </div>
+    <!-- Badges -->
+    <div class="absolute top-4 right-4 flex gap-2">
+      {isLegacy && (
+        <span class="badge badge-muted">Legacy</span>
+      )}
+    </div>
+    <div class="absolute top-4 left-4 flex gap-2">
+      {cable.connector.reversible && (
+        <span class="badge badge-reversible">Reversible</span>
+      )}
     </div>
 
+    <!-- Header -->
+    <div class="mt-6 mb-4">
+      <h3 class="text-xl font-semibold text-foreground mb-1">{cable.type}</h3>
+      <p class="text-sm">{cable.full_name}</p>
+    </div>
+
+    <!-- Specs Grid -->
     <div class="grid grid-cols-2 gap-4 mb-4">
       <div>
-        <p class="text-gray-500 uppercase tracking-wide">Max Speed</p>
-        <p class="text-gray-900 font-medium">
+        <p class="text-xs mb-1">Max Speed</p>
+        <p class="text-foreground font-medium">
           {formatDataRate(maxRate)}
         </p>
       </div>
       {maxPower && (
         <div>
-          <p class="text-gray-500 uppercase tracking-wide">Max Power</p>
-          <p class="text-gray-900 font-medium">
+          <p class="text-xs mb-1">Max Power</p>
+          <p class="text-foreground font-medium">
             {maxPower}W
           </p>
         </div>
       )}
     </div>
 
+    <!-- Connector Info -->
     <div class="mb-4">
-      <p class="text-gray-500 uppercase tracking-wide mb-1">Connector</p>
-      <p class="text-gray-900">
+      <p class="text-xs mb-1">Connector</p>
+      <p class="text-foreground text-sm">
         {cable.connector.pins} pins, {cable.connector.width}×{cable.connector.height}mm
-        {cable.connector.reversible && <span class="text-green-700 ml-1">(reversible)</span>}
       </p>
     </div>
 
+    <!-- Common Uses -->
     <div class="mb-4">
-      <p class="text-gray-500 uppercase tracking-wide mb-1">Common Uses</p>
+      <p class="text-xs mb-2">Common Uses</p>
       <div class="flex flex-wrap gap-1">
         {cable.common_devices.slice(0, 3).map((device: string) => (
-          <span class="inline-block px-2 py-1 bg-gray-100 text-gray-700">
-            {device}
-          </span>
+          <span class="tag text-xs">{device}</span>
         ))}
         {cable.common_devices.length > 3 && (
-          <span class="inline-block px-2 py-1 bg-gray-100 text-gray-700">
-            +{cable.common_devices.length - 3} more
-          </span>
+          <span class="tag-muted text-xs">+{cable.common_devices.length - 3} more</span>
         )}
       </div>
     </div>
 
+    <!-- Warning -->
     {cable.confusion_points.length > 0 && (
-      <div class="mb-4 p-2 bg-amber-50 border border-amber-200">
-        <p class="text-amber-800 text-sm">
-          ⚠️ {cable.confusion_points[0]}
+      <div class="mb-4 p-3 bg-warning/10 border border-warning/20 rounded-lg">
+        <p class="text-warning-foreground text-sm">
+          {cable.confusion_points[0]}
         </p>
       </div>
     )}
 
-    <p class="text-gray-600 line-clamp-2">{cable.notes}</p>
+    <!-- Footer -->
+    <div class="flex items-center gap-1 text-sm">
+      <span class="group-hover:underline">Learn more</span>
+      <span class="transition-transform group-hover:translate-x-0.5">→</span>
+    </div>
   </a>
 </div>

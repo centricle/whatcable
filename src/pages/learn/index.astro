@@ -6,91 +6,92 @@ const description = "A quick guide to understanding USB cables. Why USB-C is con
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="bg-slate-800 text-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <!-- Hero -->
+  <div class="bg-primary">
+    <div class="max-w-4xl mx-auto px-4 py-12">
       <h1 class="text-3xl sm:text-4xl font-bold mb-4">The USB Cable Primer</h1>
-      <p class="text-xl text-blue-100">
+      <p class="text-xl-foreground/90">
         Everything you need to know about USB cables, without the technical jargon.
       </p>
     </div>
   </div>
 
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="max-w-4xl mx-auto px-4 py-12">
 
     <!-- Section: The Problem -->
     <section class="mb-12">
-      <h2 class="text-2xl font-bold text-gray-900 mb-4">Why USB-C is Chaos</h2>
-      <p class="text-gray-700 mb-4">
+      <h2 class="text-2xl font-bold text-foreground mb-4">Why USB-C is Chaos</h2>
+      <p class="mb-4">
         USB-C was supposed to be the "one cable to rule them all." Instead, it created a new kind of confusion:
-        <strong>cables that look identical but have wildly different capabilities.</strong>
+        <strong class="text-foreground">cables that look identical but have wildly different capabilities.</strong>
       </p>
 
-      <div class="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6">
-        <p class="text-amber-800">
+      <div class="rounded-xl bg-warning/10 border border-warning/20 p-4 mb-6">
+        <p class="text-warning-foreground mb-0">
           The same USB-C cable might transfer data at 480 Mbps or 40,000 Mbps. It might charge at 5W or 240W.
           It might support video output or not. And you can't tell by looking at it.
         </p>
       </div>
 
-      <p class="text-gray-700 mb-4">
-        This happens because USB-C is just a <strong>connector shape</strong>. The actual capabilities depend on:
+      <p class="mb-4">
+        This happens because USB-C is just a <strong class="text-foreground">connector shape</strong>. The actual capabilities depend on:
       </p>
-      <ul class="list-disc list-inside space-y-2 text-gray-700 mb-4">
+      <ul class="list-disc list-inside space-y-2 mb-4">
         <li>The protocol the cable supports (USB 2.0, USB 3.2, USB4, Thunderbolt)</li>
         <li>The power delivery rating of the cable</li>
         <li>Whether the cable has the wiring for video signals</li>
         <li>The quality of the cable construction</li>
       </ul>
-      <p class="text-gray-700">
+      <p class="mb-0">
         A $5 cable and a $50 cable will both fit the same port. Only one will actually work for what you need.
       </p>
     </section>
 
     <!-- Section: Version Numbers -->
     <section class="mb-12">
-      <h2 class="text-2xl font-bold text-gray-900 mb-4">What the Version Numbers Mean</h2>
+      <h2 class="text-2xl font-bold text-foreground mb-4">What the Version Numbers Mean</h2>
 
-      <div class="overflow-x-auto">
-        <table class="w-full border-collapse mb-6">
-          <thead>
-            <tr class="bg-gray-100">
-              <th class="border border-gray-300 px-4 py-2 text-left">Name</th>
-              <th class="border border-gray-300 px-4 py-2 text-left">Speed</th>
-              <th class="border border-gray-300 px-4 py-2 text-left">What It's Good For</th>
+      <div class="overflow-x-auto rounded-2xl border border-border mb-6">
+        <table class="w-full">
+          <thead class="bg-secondary/50">
+            <tr>
+              <th class="px-4 py-3 text-left font-medium">Name</th>
+              <th class="px-4 py-3 text-left font-medium">Speed</th>
+              <th class="px-4 py-3 text-left font-medium">What It's Good For</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="bg-card divide-y divide-border">
             <tr>
-              <td class="border border-gray-300 px-4 py-2 font-medium">USB 2.0</td>
-              <td class="border border-gray-300 px-4 py-2">480 Mbps</td>
-              <td class="border border-gray-300 px-4 py-2">Charging, keyboards, mice. Not for data transfer.</td>
-            </tr>
-            <tr class="bg-gray-50">
-              <td class="border border-gray-300 px-4 py-2 font-medium">USB 3.2 Gen 1</td>
-              <td class="border border-gray-300 px-4 py-2">5 Gbps</td>
-              <td class="border border-gray-300 px-4 py-2">External drives, most peripherals.</td>
+              <td class="px-4 py-3 font-medium text-foreground">USB 2.0</td>
+              <td class="px-4 py-3">480 Mbps</td>
+              <td class="px-4 py-3">Charging, keyboards, mice. Not for data transfer.</td>
             </tr>
             <tr>
-              <td class="border border-gray-300 px-4 py-2 font-medium">USB 3.2 Gen 2</td>
-              <td class="border border-gray-300 px-4 py-2">10 Gbps</td>
-              <td class="border border-gray-300 px-4 py-2">Fast external SSDs.</td>
-            </tr>
-            <tr class="bg-gray-50">
-              <td class="border border-gray-300 px-4 py-2 font-medium">USB4</td>
-              <td class="border border-gray-300 px-4 py-2">20-40 Gbps</td>
-              <td class="border border-gray-300 px-4 py-2">High-speed storage, docks, displays.</td>
+              <td class="px-4 py-3 font-medium text-foreground">USB 3.2 Gen 1</td>
+              <td class="px-4 py-3">5 Gbps</td>
+              <td class="px-4 py-3">External drives, most peripherals.</td>
             </tr>
             <tr>
-              <td class="border border-gray-300 px-4 py-2 font-medium">Thunderbolt 4</td>
-              <td class="border border-gray-300 px-4 py-2">40 Gbps</td>
-              <td class="border border-gray-300 px-4 py-2">Pro displays, eGPUs, high-end docks.</td>
+              <td class="px-4 py-3 font-medium text-foreground">USB 3.2 Gen 2</td>
+              <td class="px-4 py-3">10 Gbps</td>
+              <td class="px-4 py-3">Fast external SSDs.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-medium text-foreground">USB4</td>
+              <td class="px-4 py-3">20-40 Gbps</td>
+              <td class="px-4 py-3">High-speed storage, docks, displays.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-medium text-foreground">Thunderbolt 4</td>
+              <td class="px-4 py-3">40 Gbps</td>
+              <td class="px-4 py-3">Pro displays, eGPUs, high-end docks.</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div class="bg-blue-50 border border-blue-200 p-4">
-        <p class="text-blue-800">
+      <div class="rounded-xl bg-primary/10 border border-primary/20 p-4">
+        <p class="text-foreground mb-0">
           <strong>The naming is a mess on purpose.</strong> USB 3.0 became USB 3.1 Gen 1, which became USB 3.2 Gen 1.
           Same speed, three names. The USB-IF keeps renaming old standards to make new ones sound better.
         </p>
@@ -99,75 +100,75 @@ const description = "A quick guide to understanding USB cables. Why USB-C is con
 
     <!-- Section: Power Delivery -->
     <section class="mb-12">
-      <h2 class="text-2xl font-bold text-gray-900 mb-4">Understanding Power Delivery</h2>
+      <h2 class="text-2xl font-bold text-foreground mb-4">Understanding Power Delivery</h2>
 
-      <p class="text-gray-700 mb-4">
+      <p class="mb-4">
         "USB Power Delivery" (USB PD) is a separate standard from data speed. A cable can be fast for data but slow for charging, or vice versa.
       </p>
 
       <div class="grid sm:grid-cols-2 gap-4 mb-6">
-        <div class="bg-gray-50 p-4 border border-gray-200">
-          <p class="font-semibold text-gray-900">Standard USB</p>
-          <p class="text-2xl font-bold text-gray-900">5W - 15W</p>
-          <p class="text-gray-600">Enough for phones (slowly)</p>
+        <div class="rounded-xl border border-border bg-card p-4">
+          <p class="font-semibold text-foreground">Standard USB</p>
+          <p class="text-2xl font-bold text-foreground mb-1">5W - 15W</p>
+          <p class="mb-0">Enough for phones (slowly)</p>
         </div>
-        <div class="bg-gray-50 p-4 border border-gray-200">
-          <p class="font-semibold text-gray-900">USB PD (older cables)</p>
-          <p class="text-2xl font-bold text-gray-900">Up to 100W</p>
-          <p class="text-gray-600">Most laptops, fast phone charging</p>
+        <div class="rounded-xl border border-border bg-card p-4">
+          <p class="font-semibold text-foreground">USB PD (older cables)</p>
+          <p class="text-2xl font-bold text-foreground mb-1">Up to 100W</p>
+          <p class="mb-0">Most laptops, fast phone charging</p>
         </div>
-        <div class="bg-gray-50 p-4 border border-gray-200">
-          <p class="font-semibold text-gray-900">USB PD 3.1 (EPR)</p>
-          <p class="text-2xl font-bold text-gray-900">Up to 240W</p>
-          <p class="text-gray-600">Gaming laptops, high-power devices</p>
+        <div class="rounded-xl border border-border bg-card p-4">
+          <p class="font-semibold text-foreground">USB PD 3.1 (EPR)</p>
+          <p class="text-2xl font-bold text-foreground mb-1">Up to 240W</p>
+          <p class="mb-0">Gaming laptops, high-power devices</p>
         </div>
-        <div class="bg-amber-50 p-4 border border-amber-200">
-          <p class="font-semibold text-amber-800">Watch Out</p>
-          <p class="text-amber-700">Cheap cables may only support 5W even if your charger outputs 100W. The cable is the bottleneck.</p>
+        <div class="rounded-xl bg-warning/10 border border-warning/20 p-4">
+          <p class="font-semibold text-warning-foreground">Watch Out</p>
+          <p class="text-warning-foreground mb-0">Cheap cables may only support 5W even if your charger outputs 100W. The cable is the bottleneck.</p>
         </div>
       </div>
     </section>
 
     <!-- Section: Reading Packaging -->
     <section class="mb-12">
-      <h2 class="text-2xl font-bold text-gray-900 mb-4">How to Read Cable Packaging</h2>
+      <h2 class="text-2xl font-bold text-foreground mb-4">How to Read Cable Packaging</h2>
 
-      <p class="text-gray-700 mb-4">When shopping for USB cables, look for these key specs:</p>
+      <p class="mb-4">When shopping for USB cables, look for these key specs:</p>
 
       <div class="space-y-4 mb-6">
-        <div class="flex gap-4 p-4 bg-white border border-gray-200">
-          <div class="text-2xl">&#x1F50C;</div>
+        <div class="flex gap-4 p-4 rounded-xl bg-card border border-border">
+          <div class="text-2xl">🔌</div>
           <div>
-            <p class="font-semibold text-gray-900">Data Speed Rating</p>
-            <p class="text-gray-600">Look for "5 Gbps", "10 Gbps", "40 Gbps", or version numbers like "USB 3.2 Gen 2"</p>
+            <p class="font-semibold text-foreground mb-1">Data Speed Rating</p>
+            <p class="mb-0">Look for "5 Gbps", "10 Gbps", "40 Gbps", or version numbers like "USB 3.2 Gen 2"</p>
           </div>
         </div>
-        <div class="flex gap-4 p-4 bg-white border border-gray-200">
-          <div class="text-2xl">&#x26A1;</div>
+        <div class="flex gap-4 p-4 rounded-xl bg-card border border-border">
+          <div class="text-2xl">⚡</div>
           <div>
-            <p class="font-semibold text-gray-900">Power Rating</p>
-            <p class="text-gray-600">Listed in watts (W). "60W", "100W", or "240W". Higher is better for charging.</p>
+            <p class="font-semibold text-foreground mb-1">Power Rating</p>
+            <p class="mb-0">Listed in watts (W). "60W", "100W", or "240W". Higher is better for charging.</p>
           </div>
         </div>
-        <div class="flex gap-4 p-4 bg-white border border-gray-200">
-          <div class="text-2xl">&#x1F3AC;</div>
+        <div class="flex gap-4 p-4 rounded-xl bg-card border border-border">
+          <div class="text-2xl">🎬</div>
           <div>
-            <p class="font-semibold text-gray-900">Video Support</p>
-            <p class="text-gray-600">Look for "DisplayPort Alt Mode", "HDMI Alt Mode", or "Video-enabled". Not all cables have this.</p>
+            <p class="font-semibold text-foreground mb-1">Video Support</p>
+            <p class="mb-0">Look for "DisplayPort Alt Mode", "HDMI Alt Mode", or "Video-enabled". Not all cables have this.</p>
           </div>
         </div>
-        <div class="flex gap-4 p-4 bg-white border border-gray-200">
-          <div class="text-2xl">&#x1F3C6;</div>
+        <div class="flex gap-4 p-4 rounded-xl bg-card border border-border">
+          <div class="text-2xl">🏆</div>
           <div>
-            <p class="font-semibold text-gray-900">Certification Logos</p>
-            <p class="text-gray-600">USB-IF certified (trident logo), Thunderbolt (lightning bolt). These mean tested and verified.</p>
+            <p class="font-semibold text-foreground mb-1">Certification Logos</p>
+            <p class="mb-0">USB-IF certified (trident logo), Thunderbolt (lightning bolt). These mean tested and verified.</p>
           </div>
         </div>
       </div>
 
-      <div class="bg-green-50 border border-green-200 p-4">
-        <p class="font-semibold text-green-800 mb-2">The Simple Rule</p>
-        <p class="text-green-700">
+      <div class="rounded-xl bg-primary/10 border border-primary/20 p-4">
+        <p class="font-semibold text-foreground mb-2">The Simple Rule</p>
+        <p class="mb-0">
           If the packaging doesn't clearly state the speed and power ratings, assume the worst.
           Quality cables always advertise their capabilities.
         </p>
@@ -176,46 +177,43 @@ const description = "A quick guide to understanding USB cables. Why USB-C is con
 
     <!-- Section: Quick Tips -->
     <section class="mb-12">
-      <h2 class="text-2xl font-bold text-gray-900 mb-4">Quick Tips</h2>
+      <h2 class="text-2xl font-bold text-foreground mb-4">Quick Tips</h2>
 
-      <ul class="space-y-3">
+      <ul class="space-y-3 list-none pl-0">
         <li class="flex gap-3 items-start">
-          <span class="text-blue-600 font-bold">1.</span>
-          <span class="text-gray-700"><strong>For charging only:</strong> Any cable works, but check the wattage rating if you want fast charging.</span>
+          <span class="font-bold">1.</span>
+          <span class="text-muted-foreground"><strong class="text-foreground">For charging only:</strong> Any cable works, but check the wattage rating if you want fast charging.</span>
         </li>
         <li class="flex gap-3 items-start">
-          <span class="text-blue-600 font-bold">2.</span>
-          <span class="text-gray-700"><strong>For external drives:</strong> Get at least USB 3.2 Gen 1 (5 Gbps). USB 2.0 will bottleneck your SSD.</span>
+          <span class="font-bold">2.</span>
+          <span class="text-muted-foreground"><strong class="text-foreground">For external drives:</strong> Get at least USB 3.2 Gen 1 (5 Gbps). USB 2.0 will bottleneck your SSD.</span>
         </li>
         <li class="flex gap-3 items-start">
-          <span class="text-blue-600 font-bold">3.</span>
-          <span class="text-gray-700"><strong>For monitors/docks:</strong> You need a video-capable cable. Look for Thunderbolt or "DP Alt Mode".</span>
+          <span class="font-bold">3.</span>
+          <span class="text-muted-foreground"><strong class="text-foreground">For monitors/docks:</strong> You need a video-capable cable. Look for Thunderbolt or "DP Alt Mode".</span>
         </li>
         <li class="flex gap-3 items-start">
-          <span class="text-blue-600 font-bold">4.</span>
-          <span class="text-gray-700"><strong>Shorter is better:</strong> Longer cables often can't maintain top speeds. Stick to 1-2 meters for USB4/Thunderbolt.</span>
+          <span class="font-bold">4.</span>
+          <span class="text-muted-foreground"><strong class="text-foreground">Shorter is better:</strong> Longer cables often can't maintain top speeds. Stick to 1-2 meters for USB4/Thunderbolt.</span>
         </li>
         <li class="flex gap-3 items-start">
-          <span class="text-blue-600 font-bold">5.</span>
-          <span class="text-gray-700"><strong>When in doubt, check the logo:</strong> Thunderbolt (lightning bolt) cables do everything. They're expensive but foolproof.</span>
+          <span class="font-bold">5.</span>
+          <span class="text-muted-foreground"><strong class="text-foreground">When in doubt, check the logo:</strong> Thunderbolt (lightning bolt) cables do everything. They're expensive but foolproof.</span>
         </li>
       </ul>
     </section>
 
     <!-- CTA Section -->
-    <section class="bg-slate-100 p-6 border border-slate-200">
-      <h2 class="text-xl font-bold text-gray-900 mb-2">Not Sure What Connector You Have?</h2>
-      <p class="text-gray-700 mb-4">
+    <section class="rounded-2xl border border-border bg-card p-6">
+      <h2 class="text-xl font-bold text-foreground mb-2">Not Sure What Connector You Have?</h2>
+      <p class="mb-4">
         Use our visual identifier to figure out which USB connector you're looking at.
       </p>
       <a
         href="/learn/identify"
-        class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors"
+        class="btn btn-primary"
       >
-        Identify My Connector
-        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-        </svg>
+        Identify My Connector →
       </a>
     </section>
 

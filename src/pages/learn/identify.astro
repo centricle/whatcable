@@ -7,50 +7,51 @@ const description = "Visual guide to identify USB connectors. Click on the shape
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="bg-slate-800 text-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <!-- Hero -->
+  <div class="bg-primary">
+    <div class="max-w-4xl mx-auto px-4 py-12">
       <h1 class="text-3xl sm:text-4xl font-bold mb-4">Identify Your USB Connector</h1>
-      <p class="text-xl text-blue-100">
+      <p class="text-xl-foreground/90">
         Click the shape that matches the end of your cable.
       </p>
     </div>
   </div>
 
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="max-w-4xl mx-auto px-4 py-12">
     <ConnectorPicker />
 
-    <div class="mt-12 pt-8 border-t border-gray-200">
-      <h2 class="text-xl font-bold text-gray-900 mb-4">Still Confused?</h2>
-      <p class="text-gray-700 mb-4">
+    <div class="mt-12 pt-8 border-t border-border">
+      <h2 class="text-xl font-bold text-foreground mb-4">Still Confused?</h2>
+      <p class="mb-4">
         USB connectors can be tricky to tell apart, especially Mini and Micro USB. Here are some tips:
       </p>
-      <ul class="space-y-2 text-gray-700 mb-6">
+      <ul class="space-y-2 mb-6 list-none pl-0">
         <li class="flex gap-2">
-          <span class="text-blue-600 font-bold">&bull;</span>
-          <span><strong>USB-C</strong> is the only reversible one. It works either way you plug it in.</span>
+          <span class="font-bold">•</span>
+          <span><strong class="text-foreground">USB-C</strong> is the only reversible one. It works either way you plug it in.</span>
         </li>
         <li class="flex gap-2">
-          <span class="text-blue-600 font-bold">&bull;</span>
-          <span><strong>USB-A</strong> is the classic rectangular one on computers and chargers.</span>
+          <span class="font-bold">•</span>
+          <span><strong class="text-foreground">USB-A</strong> is the classic rectangular one on computers and chargers.</span>
         </li>
         <li class="flex gap-2">
-          <span class="text-blue-600 font-bold">&bull;</span>
-          <span><strong>USB-B</strong> is almost square, often found on printers.</span>
+          <span class="font-bold">•</span>
+          <span><strong class="text-foreground">USB-B</strong> is almost square, often found on printers.</span>
         </li>
         <li class="flex gap-2">
-          <span class="text-blue-600 font-bold">&bull;</span>
-          <span><strong>Micro USB</strong> is thin and flat (about 2mm tall). Common on older phones.</span>
+          <span class="font-bold">•</span>
+          <span><strong class="text-foreground">Micro USB</strong> is thin and flat (about 2mm tall). Common on older phones.</span>
         </li>
         <li class="flex gap-2">
-          <span class="text-blue-600 font-bold">&bull;</span>
-          <span><strong>Mini USB</strong> is thicker (about 3mm tall) and taller. Found on old cameras and PS3 controllers.</span>
+          <span class="font-bold">•</span>
+          <span><strong class="text-foreground">Mini USB</strong> is thicker (about 3mm tall) and taller. Found on old cameras and PS3 controllers.</span>
         </li>
       </ul>
 
-      <div class="bg-blue-50 border border-blue-200 p-4">
-        <p class="text-blue-800">
+      <div class="rounded-xl bg-primary/10 border border-primary/20 p-4">
+        <p class="text-foreground mb-0">
           <strong>Want to learn more?</strong> Check out our
-          <a href="/learn" class="underline hover:text-blue-600">USB Cable Primer</a>
+          <a href="/learn" class="hover:underline">USB Cable Primer</a>
           to understand what the different USB versions and specs actually mean.
         </p>
       </div>

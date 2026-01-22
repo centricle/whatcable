@@ -39,66 +39,72 @@ const {
 		<meta name="robots" content="index, follow" />
 	</head>
 
-	<body class="bg-gray-50 text-gray-900">
-		<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-900 text-white px-4 py-2 z-50">Skip to main content</a>
-		<header class="shadow-sm border-b border-gray-200">
-			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div class="flex justify-between items-center py-6">
-					<div class="flex items-center">
-						<a href="/" class="text-2xl font-bold text-slate-800" aria-label="WhatCable home page">
-							whatcable.us
-						</a>
+	<body class="bg-background text-foreground">
+		<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-foreground px-4 py-2 rounded-lg z-50">Skip to main content</a>
+
+		<!-- Header -->
+		<header class="sticky top-0 z-50 w-full border-b border-border backdrop-blur-md" style="background-color: oklch(0.92 0.02 78 / 0.95);">
+			<div class="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
+				<!-- Logo -->
+				<a href="/" class="flex items-center gap-2 font-semibold text-foreground" aria-label="WhatCable home page">
+					<div class="flex h-8 w-8 items-center justify-center rounded-lg border border-border" style="background-color: oklch(0.97 0.02 67.52);">
+						<span class="text-foreground font-bold text-sm">WC</span>
 					</div>
+					<span>WhatCable</span>
+				</a>
 
-					<!-- Desktop Navigation -->
-					<nav class="hidden gap-x-6 text-gray-800 md:flex" aria-label="Main navigation">
-						<a href="/usb" class="hover:underline" aria-label="USB cables and connectors">USB</a>
-						<a href="/video" class="hover:underline" aria-label="Video cables and connectors">Video</a>
-						<a href="/audio" class="hover:underline" aria-label="Audio cables and connectors">Audio</a>
-						<a href="/power" class="hover:underline" aria-label="Power cables and connectors">Power</a>
-						<a href="/filter" class="hover:underline" aria-label="Filter cables by specs">Filter</a>
-						<a href="/search" class="hover:underline" aria-label="Search cable database">Search</a>
-						<a href="/learn/identify" class="hover:underline" aria-label="Identify your cable connector">Help</a>
-					</nav>
+				<!-- Desktop Navigation -->
+				<nav class="hidden md:flex items-center gap-6 text-sm" aria-label="Main navigation">
+					<a href="/usb" class="hover:underline">USB</a>
+					<a href="/video" class="hover:underline">Video</a>
+					<a href="/audio" class="hover:underline">Audio</a>
+					<a href="/power" class="hover:underline">Power</a>
+					<a href="/filter" class="hover:underline">Filter</a>
+					<a href="/search" class="hover:underline">Search</a>
+					<a href="/learn/identify" class="hover:underline">Help</a>
+				</nav>
 
-					<!-- Mobile Menu Button -->
-					<button
-						class="md:hidden flex items-center justify-center w-10 h-10 text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-						aria-label="Open navigation menu"
-						aria-expanded="false"
-						id="mobile-menu-button"
-					>
-						<svg class="w-6 h-6 hamburger-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-						</svg>
-						<svg class="w-6 h-6 close-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-						</svg>
-					</button>
-				</div>
+				<!-- Mobile Menu Button -->
+				<button
+					class="md:hidden flex items-center justify-center w-10 h-10 hover:text-foreground rounded-lg transition-colors"
+					aria-label="Open navigation menu"
+					aria-expanded="false"
+					id="mobile-menu-button"
+				>
+					<svg class="w-6 h-6 hamburger-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+					</svg>
+					<svg class="w-6 h-6 close-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+					</svg>
+				</button>
+			</div>
 
-				<!-- Mobile Navigation Menu -->
-				<div class="md:hidden hidden" id="mobile-menu">
-					<div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
-						<a href="/usb" class="block px-3 py-3 text-gray-700 hover:underline hover:bg-gray-50 text-base font-medium">USB Connectors</a>
-						<a href="/video" class="block px-3 py-3 text-gray-700 hover:underline hover:bg-gray-50 text-base font-medium">Video Connectors</a>
-						<a href="/audio" class="block px-3 py-3 text-gray-700 hover:underline hover:bg-gray-50 text-base font-medium">Audio Connectors</a>
-						<a href="/power" class="block px-3 py-3 text-gray-700 hover:underline hover:bg-gray-50 text-base font-medium">Power Connectors</a>
-						<a href="/filter" class="block px-3 py-3 text-gray-700 hover:underline hover:bg-gray-50 text-base font-medium">Filter by Specs</a>
-						<a href="/search" class="block px-3 py-3 text-gray-700 hover:underline hover:bg-gray-50 text-base font-medium">Search Database</a>
-						<a href="/learn/identify" class="block px-3 py-3 text-gray-700 hover:underline hover:bg-gray-50 text-base font-medium">Identify Cable</a>
-					</div>
+			<!-- Mobile Navigation Menu -->
+			<div class="md:hidden hidden" id="mobile-menu">
+				<div class="px-4 pt-2 pb-4 space-y-1 bg-card border-t border-border">
+					<a href="/usb" class="block px-3 py-3 text-foreground hover:bg-secondary rounded-lg transition-colors">USB Connectors</a>
+					<a href="/video" class="block px-3 py-3 text-foreground hover:bg-secondary rounded-lg transition-colors">Video Connectors</a>
+					<a href="/audio" class="block px-3 py-3 text-foreground hover:bg-secondary rounded-lg transition-colors">Audio Connectors</a>
+					<a href="/power" class="block px-3 py-3 text-foreground hover:bg-secondary rounded-lg transition-colors">Power Connectors</a>
+					<a href="/filter" class="block px-3 py-3 text-foreground hover:bg-secondary rounded-lg transition-colors">Filter by Specs</a>
+					<a href="/search" class="block px-3 py-3 text-foreground hover:bg-secondary rounded-lg transition-colors">Search Database</a>
+					<a href="/learn/identify" class="block px-3 py-3 text-foreground hover:bg-secondary rounded-lg transition-colors">Identify Cable</a>
 				</div>
 			</div>
 		</header>
 
-		<main id="main" class="min-h-screen border-b border-gray-400">
+		<main id="main" class="min-h-screen">
 			<slot />
 		</main>
 
-		<footer class="mx-auto flex max-w-7xl items-center justify-between p-8 pb-6 tracking-wider text-gray-800 uppercase">
-			<a class="hover:underline" href="https://centricle.com">Built by centricle</a>
-			<a class="hover:underline" href="/about">About</a>
+		<!-- Footer -->
+		<footer class="border-t border-border bg-muted/30">
+			<div class="mx-auto max-w-5xl px-4 py-8">
+				<div class="text-center text-sm uppercase">
+					<a class="hover:underline" href="https://centricle.com">Built by centricle</a>
+				</div>
+			</div>
 		</footer>
 
 		<script>

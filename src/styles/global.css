@@ -1,41 +1,154 @@
 @import "tailwindcss";
 
-@layer theme {
-  :root {
-    --font-sans: sans-serif;
-  }
+@theme {
+  /* OKLCH Color System */
+  --color-background: oklch(0.98 0.005 80);
+  --color-foreground: oklch(0 0 0);
+  --color-card: oklch(1 0 0);
+  --color-card-foreground: oklch(0.25 0.02 60);
+  --color-primary: oklch(0.94 0.03 79.77);     /* warm tan */
+  --color-primary-foreground: oklch(0.25 0.02 25);  /* dark text on peachy */
+  --color-secondary: oklch(0.95 0.01 80);
+  --color-secondary-foreground: oklch(0.25 0.02 60);
+  --color-muted: oklch(0.94 0.01 80);
+  --color-muted-foreground: oklch(0.3 0.02 60);
+  --color-border: oklch(0.9 0.01 80);
+  --color-header: oklch(0.92 0.02 78);
+  --color-accent: oklch(0.97 0.02 67.52);  /* cream/tan for logo, highlights */
+  --color-warning: oklch(0.75 0.15 65);
+  --color-warning-foreground: oklch(0.3 0.05 60);
+
+  /* System Font Stack */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
 }
 
 @layer base {
   body {
-    @apply bg-gray-50 text-gray-900 font-mono;
+    @apply bg-background text-foreground font-sans antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply tracking-wide text-blue-900;
+    @apply text-foreground font-semibold tracking-tight;
   }
 
-  /* Selective uppercase for specific contexts */
-  .nav-header,
-  .category-header,
-  .spec-label,
-  nav a,
-  th {
-    @apply uppercase;
-  }
-
-  h1 { @apply text-4xl font-bold leading-tight mb-4; letter-spacing: 0.05em; }
-  h2 { @apply text-2xl font-semibold leading-snug mb-3; letter-spacing: 0.04em; }
-  h3 { @apply text-xl font-medium leading-snug mb-2; letter-spacing: 0.03em; }
-  h4 { @apply text-lg font-medium mb-2; letter-spacing: 0.025em; }
+  h1 { @apply text-4xl leading-tight mb-4; }
+  h2 { @apply text-2xl leading-snug mb-3; }
+  h3 { @apply text-xl leading-snug mb-2; }
+  h4 { @apply text-lg mb-2; }
 
   p { @apply mb-4; }
 
   ul { @apply list-disc pl-5; }
 
-  code, pre { @apply text-sm bg-gray-100 px-1; }
+  code, pre { @apply text-sm bg-secondary px-1 rounded-sm; }
 
   table { @apply w-full text-sm border-collapse; }
-  th { @apply text-left uppercase tracking-wide text-gray-700 pb-1; }
-  td { @apply border-b border-gray-300 py-1; }
+  th { @apply text-left pb-2 font-medium; }
+  td { @apply border-b border-border py-2; }
+
+  /* Links */
+  a {
+    @apply text-foreground transition-colors;
+  }
+
+  /* Focus states */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer components {
+  /* Badge styles */
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-md;
+  }
+
+  .badge-primary {
+    @apply bg-primary/10 text-primary;
+  }
+
+  .badge-muted {
+    @apply bg-muted text-muted-foreground border border-border;
+  }
+
+  .badge-reversible {
+    @apply bg-muted text-muted-foreground border border-border;
+  }
+
+  .badge-warning {
+    @apply bg-warning/10 text-warning-foreground;
+  }
+
+  /* Tag styles (small pills for lists like "Common Uses") */
+  .tag {
+    @apply inline-block px-2 py-1 bg-secondary text-secondary-foreground rounded-md border border-border;
+  }
+
+  .tag-muted {
+    @apply inline-block px-2 py-1 bg-secondary text-muted-foreground rounded-md border border-border;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-card border border-border rounded-2xl transition-all;
+  }
+
+  .card:hover {
+    @apply border-primary/30 shadow-lg shadow-primary/5;
+  }
+
+  /* Button styles */
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 font-medium rounded-lg transition-colors;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground border border-border hover:bg-secondary/80;
+  }
+
+  /* Chip/filter button styles */
+  .filter-chip {
+    @apply px-3 py-1 border rounded-lg text-sm transition-colors;
+  }
+
+  .filter-chip-active {
+    @apply bg-primary text-primary-foreground border-border;
+  }
+
+  .filter-chip-inactive {
+    @apply bg-card text-foreground border-border hover:border-primary/30;
+  }
+}
+
+@layer utilities {
+  /* Text balance for headings */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }

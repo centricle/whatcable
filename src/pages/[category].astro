@@ -18,32 +18,32 @@ const description = `Complete specifications for ${categoryData.name.toLowerCase
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="bg-background">
+    <div class="max-w-5xl mx-auto px-4 py-8">
       <!-- Header Section -->
       <div class="mb-12">
         <nav class="mb-6 flex" aria-label="Breadcrumb">
-          <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <ol class="inline-flex items-center space-x-2 text-sm">
             <li class="inline-flex items-center">
-              <a href="/" class="text-gray-700 hover:underline">Home</a>
+              <a href="/" class="hover:text-foreground transition-colors">Home</a>
             </li>
             <li>
               <div class="flex items-center">
-                <span class="mr-2 text-gray-400">/</span>
-                <span class="text-gray-500 uppercase">{categoryData.name}</span>
+                <span class="mx-2">/</span>
+                <span class="text-foreground font-medium">{categoryData.name}</span>
               </div>
             </li>
           </ol>
         </nav>
 
         <div class="text-center">
-          <h1 class="text-4xl font-bold text-gray-900 mb-4">{categoryData.name} Connectors</h1>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          <h1 class="text-4xl font-bold text-foreground mb-4">{categoryData.name} Connectors</h1>
+          <p class="text-xl max-w-3xl mx-auto mb-8">
             {categoryData.description}
           </p>
           {categoryData.cables.length > 0 && (
-            <div class="inline-flex items-center bg-blue-100 px-4 py-2 text-blue-900 spec-label">
-              <span class="font-medium">{categoryData.cables.length} connector types documented</span>
+            <div class="badge badge-muted">
+              {categoryData.cables.length} connector types documented
             </div>
           )}
         </div>
@@ -57,38 +57,38 @@ const description = `Complete specifications for ${categoryData.name.toLowerCase
           ))}
         </div>
       ) : (
-        <div class="text-center py-16 border border-dashed border-gray-300 text-gray-500">
+        <div class="text-center py-16 border border-dashed border-border rounded-2xl">
           <p class="text-xl mb-2">Coming soon</p>
           <p>We're working on documenting {categoryData.name.toLowerCase()} connectors.</p>
         </div>
       )}
 
       <!-- Category-specific Information -->
-      <div class="mt-16 border border-gray-300 p-8">
-        <h2 class="text-2xl font-semibold text-gray-900 mb-6">
+      <div class="mt-16 rounded-2xl border border-border bg-card p-8">
+        <h2 class="text-2xl font-semibold text-foreground mb-6">
           About {categoryData.name} Connectors
         </h2>
 
         {categoryData.slug === 'usb' && (
           <div class="prose prose-gray max-w-none">
-            <p class="text-gray-700 mb-4">
+            <p class="mb-4">
               USB (Universal Serial Bus) is the most common connector family, but also the most confusing.
               The same USB-C connector can support vastly different capabilities depending on the cable
               and devices involved.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              <div>
-                <h3 class="font-semibold text-gray-900 mb-2">The USB-C Problem</h3>
-                <ul class="space-y-1 text-gray-700">
+              <div class="rounded-xl bg-secondary/50 p-4 border border-border">
+                <h3 class="font-semibold text-foreground mb-2">The USB-C Problem</h3>
+                <ul class="space-y-1 list-none pl-0">
                   <li>USB 2.0: 480 Mbps (same connector)</li>
                   <li>USB 3.2 Gen 2: 10 Gbps (same connector)</li>
                   <li>USB4: 40 Gbps (same connector)</li>
                   <li>Thunderbolt 4: 40 Gbps (same connector)</li>
                 </ul>
               </div>
-              <div>
-                <h3 class="font-semibold text-gray-900 mb-2">Power Delivery Confusion</h3>
-                <ul class="space-y-1 text-gray-700">
+              <div class="rounded-xl bg-secondary/50 p-4 border border-border">
+                <h3 class="font-semibold text-foreground mb-2">Power Delivery Confusion</h3>
+                <ul class="space-y-1 list-none pl-0">
                   <li>Basic USB: 5V @ 0.5A = 2.5W</li>
                   <li>USB BC 1.2: 5V @ 1.5A = 7.5W</li>
                   <li>USB PD 3.0: Up to 100W</li>
@@ -101,23 +101,23 @@ const description = `Complete specifications for ${categoryData.name.toLowerCase
 
         {categoryData.slug === 'video' && (
           <div class="prose prose-gray max-w-none">
-            <p class="text-gray-700 mb-4">
+            <p class="mb-4">
               Video connectors have evolved significantly with increasing resolution and refresh rate demands.
               Understanding bandwidth requirements is key to choosing the right cable.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              <div>
-                <h3 class="font-semibold text-gray-900 mb-2">Common Standards</h3>
-                <ul class="space-y-1 text-gray-700">
+              <div class="rounded-xl bg-secondary/50 p-4 border border-border">
+                <h3 class="font-semibold text-foreground mb-2">Common Standards</h3>
+                <ul class="space-y-1 list-none pl-0">
                   <li>HDMI 2.1 - 48 Gbps, 4K@120Hz, 8K@60Hz</li>
                   <li>DisplayPort 2.1 - 80 Gbps, 16K support</li>
                   <li>Thunderbolt 4 - 40 Gbps, daisy-chaining</li>
                   <li>DVI/VGA - Legacy, limited resolution</li>
                 </ul>
               </div>
-              <div>
-                <h3 class="font-semibold text-gray-900 mb-2">Bandwidth Requirements</h3>
-                <ul class="space-y-1 text-gray-700">
+              <div class="rounded-xl bg-secondary/50 p-4 border border-border">
+                <h3 class="font-semibold text-foreground mb-2">Bandwidth Requirements</h3>
+                <ul class="space-y-1 list-none pl-0">
                   <li>1080p@60Hz: ~3.2 Gbps</li>
                   <li>4K@60Hz: ~12.5 Gbps</li>
                   <li>4K@120Hz: ~25 Gbps</li>
@@ -130,22 +130,22 @@ const description = `Complete specifications for ${categoryData.name.toLowerCase
 
         {categoryData.slug === 'audio' && (
           <div class="prose prose-gray max-w-none">
-            <p class="text-gray-700 mb-4">
+            <p class="mb-4">
               Audio connectors range from consumer headphone jacks to professional studio equipment.
               The physical connector often indicates the intended use case and signal type.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              <div>
-                <h3 class="font-semibold text-gray-900 mb-2">Consumer Audio</h3>
-                <ul class="space-y-1 text-gray-700">
+              <div class="rounded-xl bg-secondary/50 p-4 border border-border">
+                <h3 class="font-semibold text-foreground mb-2">Consumer Audio</h3>
+                <ul class="space-y-1 list-none pl-0">
                   <li>3.5mm TRS - Headphones, aux cables</li>
                   <li>RCA - Home audio, component video</li>
                   <li>Optical (TOSLINK) - Digital audio</li>
                 </ul>
               </div>
-              <div>
-                <h3 class="font-semibold text-gray-900 mb-2">Professional Audio</h3>
-                <ul class="space-y-1 text-gray-700">
+              <div class="rounded-xl bg-secondary/50 p-4 border border-border">
+                <h3 class="font-semibold text-foreground mb-2">Professional Audio</h3>
+                <ul class="space-y-1 list-none pl-0">
                   <li>XLR - Balanced, interference-resistant</li>
                   <li>6.35mm (1/4") - Instruments, studio</li>
                   <li>Speakon - High-power speaker cables</li>
@@ -157,22 +157,22 @@ const description = `Complete specifications for ${categoryData.name.toLowerCase
 
         {categoryData.slug === 'power' && (
           <div class="prose prose-gray max-w-none">
-            <p class="text-gray-700 mb-4">
+            <p class="mb-4">
               Power connectors vary by region, voltage, and current requirements.
               Using the wrong connector or adapter can be dangerous.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              <div>
-                <h3 class="font-semibold text-gray-900 mb-2">DC Power</h3>
-                <ul class="space-y-1 text-gray-700">
+              <div class="rounded-xl bg-secondary/50 p-4 border border-border">
+                <h3 class="font-semibold text-foreground mb-2">DC Power</h3>
+                <ul class="space-y-1 list-none pl-0">
                   <li>Barrel jacks - Electronics, laptops</li>
                   <li>USB-C PD - Modern universal charging</li>
                   <li>Proprietary - Manufacturer-specific</li>
                 </ul>
               </div>
-              <div>
-                <h3 class="font-semibold text-gray-900 mb-2">AC Power</h3>
-                <ul class="space-y-1 text-gray-700">
+              <div class="rounded-xl bg-secondary/50 p-4 border border-border">
+                <h3 class="font-semibold text-foreground mb-2">AC Power</h3>
+                <ul class="space-y-1 list-none pl-0">
                   <li>IEC C13/C14 - Computer power cables</li>
                   <li>NEMA - North American outlets</li>
                   <li>Type G, F, etc. - Regional standards</li>
@@ -184,22 +184,22 @@ const description = `Complete specifications for ${categoryData.name.toLowerCase
 
         {categoryData.slug === 'legacy' && (
           <div class="prose prose-gray max-w-none">
-            <p class="text-gray-700 mb-4">
+            <p class="mb-4">
               Legacy connectors may still be encountered in older equipment or specialized applications.
               Many have been superseded by USB but remain in use.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              <div>
-                <h3 class="font-semibold text-gray-900 mb-2">Data Connectors</h3>
-                <ul class="space-y-1 text-gray-700">
+              <div class="rounded-xl bg-secondary/50 p-4 border border-border">
+                <h3 class="font-semibold text-foreground mb-2">Data Connectors</h3>
+                <ul class="space-y-1 list-none pl-0">
                   <li>RS-232 (Serial) - Industrial, networking</li>
                   <li>Parallel (DB-25) - Printers (obsolete)</li>
                   <li>PS/2 - Keyboards, mice (rare)</li>
                 </ul>
               </div>
-              <div>
-                <h3 class="font-semibold text-gray-900 mb-2">High-Speed Legacy</h3>
-                <ul class="space-y-1 text-gray-700">
+              <div class="rounded-xl bg-secondary/50 p-4 border border-border">
+                <h3 class="font-semibold text-foreground mb-2">High-Speed Legacy</h3>
+                <ul class="space-y-1 list-none pl-0">
                   <li>FireWire 400/800 - Video, audio equipment</li>
                   <li>eSATA - External hard drives</li>
                   <li>SCSI - Server storage (legacy)</li>

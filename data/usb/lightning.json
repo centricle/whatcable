@@ -1,0 +1,91 @@
+{
+  "type": "Lightning",
+  "full_name": "Apple Lightning Connector",
+  "standard_body": "Apple",
+  "common_names": ["Lightning", "Apple Lightning", "iPhone connector"],
+  "protocols": {
+    "USB 2.0": {
+      "version": "2.0",
+      "data_rate": "480 Mbps",
+      "data_rate_mbps": 480,
+      "power_delivery": "12W (5V @ 2.4A)",
+      "features": [
+        "Reversible connector",
+        "8-pin design",
+        "MFi certification required"
+      ],
+      "max_length": "2m recommended"
+    },
+    "USB 3.0 (Camera Adapter)": {
+      "version": "3.0",
+      "data_rate": "5 Gbps",
+      "data_rate_mbps": 5000,
+      "power_delivery": "12W (5V @ 2.4A)",
+      "features": [
+        "Only via Lightning to USB 3 Camera Adapter",
+        "Requires external power for full speed",
+        "USB host mode for accessories"
+      ],
+      "max_length": "Adapter only"
+    }
+  },
+  "connector": {
+    "pins": 8,
+    "rows": 1,
+    "width": 6.7,
+    "height": 1.5,
+    "depth": 7.7,
+    "reversible": true,
+    "shape": "rectangular",
+    "unit": "mm"
+  },
+  "electrical": {
+    "voltage_max": 5,
+    "current_max": 2.4,
+    "power_max": 12
+  },
+  "compatibility": {
+    "backwards": [],
+    "forwards": [],
+    "adapters_to": [
+      "USB-A (via cable)",
+      "USB-C (via cable or adapter)",
+      "3.5mm audio (via adapter)",
+      "HDMI (via Digital AV adapter)",
+      "VGA (via VGA adapter)",
+      "SD card (via camera adapter)"
+    ],
+    "adapters_from": []
+  },
+  "common_devices": [
+    "iPhones (5 through 14)",
+    "iPads (older models)",
+    "AirPods (1st/2nd gen case)",
+    "AirPods Pro (1st gen case)",
+    "Apple Magic Keyboard/Mouse/Trackpad",
+    "Beats headphones",
+    "Siri Remote (older)"
+  ],
+  "confusion_points": [
+    "Apple is transitioning to USB-C - iPhone 15 and newer use USB-C, not Lightning",
+    "Cheap third-party cables may not be MFi certified and can damage devices or stop working after iOS updates",
+    "Lightning looks similar to USB-C but they are NOT compatible - check your device carefully",
+    "Data transfer is limited to USB 2.0 speeds (480 Mbps) for most use cases",
+    "Maximum charging is 12W - significantly slower than USB-C Power Delivery"
+  ],
+  "buying_guide": "For Lightning cables, always look for MFi (Made for iPhone/iPad) certification - uncertified cables may be blocked by iOS updates or damage your device. Apple and certified third-party brands like Anker, Belkin, and Mophie are safe choices. If you have an iPhone 15 or newer, you need USB-C, not Lightning.",
+  "notes": "Lightning was introduced by Apple in 2012 as a proprietary replacement for the 30-pin dock connector. It was revolutionary for being reversible and compact, predating USB-C by several years. However, Apple has begun transitioning to USB-C starting with iPhone 15 in 2023, following EU regulations requiring a common charging standard. Lightning will remain relevant for older Apple devices for years to come, but new purchases should consider USB-C compatibility.",
+  "sources": [
+    {
+      "name": "Apple - About Apple Lightning accessories",
+      "url": "https://support.apple.com/en-us/HT204566",
+      "access_date": "2025-01-15"
+    },
+    {
+      "name": "Apple MFi Program",
+      "url": "https://mfi.apple.com/",
+      "access_date": "2025-01-15"
+    }
+  ],
+  "last_updated": "2025-01-22"
+}

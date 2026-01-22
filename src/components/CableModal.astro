@@ -1,0 +1,215 @@
+---
+/**
+ * CableModal - Native dialog component for connector details
+ * Uses the HTML <dialog> element for accessibility and no JS framework required
+ */
+
+export interface CableInfo {
+  id: string;
+  name: string;
+  fullName: string;
+  description: string;
+  commonUses: string[];
+  speedInfo: string;
+  powerInfo: string;
+  warnings: string[];
+  tips: string[];
+  obsolete?: boolean;
+  reversible: boolean;
+  introduced: string;
+  detailUrl: string;
+}
+
+export interface Props {
+  cables: CableInfo[];
+}
+
+const { cables } = Astro.props;
+---
+
+{cables.map((cable) => (
+  <dialog
+    id={`modal-${cable.id}`}
+    class="cable-modal backdrop:bg-foreground/50 backdrop:backdrop-blur-sm bg-card rounded-2xl shadow-xl max-w-lg w-full mx-4 p-0 border border-border"
+  >
+    <div class="p-6 max-h-[85vh] overflow-y-auto">
+      <!-- Header -->
+      <div class="flex items-start justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-xl font-semibold text-foreground">{cable.fullName}</h2>
+          <p class="text-sm mt-1">
+            Introduced in {cable.introduced}
+            {cable.reversible && " · Reversible connector"}
+          </p>
+        </div>
+        <button
+          class="modal-close hover:text-foreground p-1 rounded-lg hover:bg-secondary transition-colors"
+          aria-label="Close dialog"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="space-y-6">
+        <!-- Common Uses -->
+        <section>
+          <h3 class="flex items-center gap-2 text-sm font-medium text-foreground mb-2">
+            <span class="text-primary">⚡</span>
+            Common Uses
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {cable.commonUses.map((use) => (
+              <span class="tag text-sm">{use}</span>
+            ))}
+          </div>
+        </section>
+
+        <!-- Speed & Power Info -->
+        <section class="grid gap-4 sm:grid-cols-2">
+          <div class="rounded-xl bg-secondary/50 p-4">
+            <h4 class="text-sm font-medium text-foreground mb-1">Data Speed</h4>
+            <p class="text-sm leading-relaxed">{cable.speedInfo}</p>
+          </div>
+          <div class="rounded-xl bg-secondary/50 p-4">
+            <h4 class="text-sm font-medium text-foreground mb-1">Power Delivery</h4>
+            <p class="text-sm leading-relaxed">{cable.powerInfo}</p>
+          </div>
+        </section>
+
+        <!-- Warnings -->
+        {cable.warnings.length > 0 && (
+          <section>
+            <h3 class="flex items-center gap-2 text-sm font-medium text-foreground mb-2">
+              <span class="text-warning">⚠</span>
+              Watch Out For
+            </h3>
+            <ul class="space-y-2">
+              {cable.warnings.map((warning) => (
+                <li class="rounded-lg bg-warning/10 px-3 py-2 text-sm text-warning-foreground leading-relaxed">
+                  {warning}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <!-- Tips -->
+        {cable.tips.length > 0 && (
+          <section>
+            <h3 class="flex items-center gap-2 text-sm font-medium text-foreground mb-2">
+              <span class="text-primary">✓</span>
+              Shopping Tips
+            </h3>
+            <ul class="space-y-2">
+              {cable.tips.map((tip) => (
+                <li class="flex items-start gap-2 text-sm leading-relaxed">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"></span>
+                  {tip}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <!-- Obsolete Notice -->
+        {cable.obsolete && (
+          <section class="flex items-start gap-3 rounded-xl border border-border bg-muted/50 p-4">
+            <span class="mt-0.5">⏰</span>
+            <div>
+              <h4 class="text-sm font-medium text-foreground">Legacy Connector</h4>
+              <p class="mt-1 text-sm leading-relaxed">
+                This connector is being phased out. Newer devices typically use USB-C instead.
+                If you're buying a replacement, it might be worth checking if upgrading to a
+                USB-C device makes sense for your needs.
+              </p>
+            </div>
+          </section>
+        )}
+
+        <!-- View Full Specs Link -->
+        <div class="pt-2">
+          <a
+            href={cable.detailUrl}
+            class="btn btn-primary w-full justify-center"
+          >
+            View Full Specifications →
+          </a>
+        </div>
+      </div>
+    </div>
+  </dialog>
+))}
+
+<style>
+  .cable-modal::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+  }
+
+  .cable-modal[open] {
+    animation: modal-in 0.2s ease-out;
+  }
+
+  @keyframes modal-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Close button handlers
+    document.querySelectorAll('.cable-modal .modal-close').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const dialog = btn.closest('dialog');
+        if (dialog) dialog.close();
+      });
+    });
+
+    // Close on backdrop click
+    document.querySelectorAll('.cable-modal').forEach((dialog) => {
+      dialog.addEventListener('click', (e) => {
+        const rect = dialog.getBoundingClientRect();
+        const isInDialog = (
+          rect.top <= e.clientY &&
+          e.clientY <= rect.top + rect.height &&
+          rect.left <= e.clientX &&
+          e.clientX <= rect.left + rect.width
+        );
+        if (!isInDialog) {
+          dialog.close();
+        }
+      });
+    });
+
+    // Close on Escape key (native behavior, but ensure focus returns)
+    document.querySelectorAll('.cable-modal').forEach((dialog) => {
+      dialog.addEventListener('close', () => {
+        // Return focus to the button that opened the modal
+        const openerId = dialog.getAttribute('data-opener');
+        if (openerId) {
+          const opener = document.getElementById(openerId);
+          if (opener) opener.focus();
+        }
+      });
+    });
+  });
+
+  // Global function to open modals
+  window.openCableModal = function(id, openerId) {
+    const dialog = document.getElementById(`modal-${id}`);
+    if (dialog) {
+      dialog.setAttribute('data-opener', openerId);
+      dialog.showModal();
+    }
+  };
+</script>

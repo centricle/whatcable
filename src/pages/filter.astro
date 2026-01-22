@@ -32,127 +32,127 @@ const description = 'Find cables by specifications: data rate, power delivery, v
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="bg-background">
+    <div class="max-w-5xl mx-auto px-4 py-8">
       <!-- Header -->
       <div class="mb-8">
-        <nav class="flex mb-6" aria-label="Breadcrumb">
-          <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <nav class="mb-6 flex" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center space-x-2 text-sm">
             <li class="inline-flex items-center">
-              <a href="/" class="text-gray-700 hover:underline">Home</a>
+              <a href="/" class="hover:text-foreground transition-colors">Home</a>
             </li>
             <li>
               <div class="flex items-center">
-                <span class="mr-2 text-gray-400">/</span>
-                <span class="text-gray-500 uppercase">Filter</span>
+                <span class="mx-2">/</span>
+                <span class="text-foreground font-medium">Filter</span>
               </div>
             </li>
           </ol>
         </nav>
 
-        <h1 class="text-4xl font-bold text-gray-900 mb-4 text-center">Filter Cables</h1>
-        <p class="text-gray-600 text-center max-w-2xl mx-auto">
+        <h1 class="text-4xl font-bold text-foreground mb-4 text-center">Filter Cables</h1>
+        <p class="text-center max-w-2xl mx-auto">
           Find cables by specifications. Select your requirements below.
         </p>
       </div>
 
       <!-- Quick Checks -->
-      <div class="mb-8 p-4 bg-slate-50 border border-slate-200">
-        <h2 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Quick Filters</h2>
+      <div class="mb-8 p-4 rounded-2xl bg-primary/5 border border-primary/20">
+        <h2 class="text-sm font-semibold text-foreground mb-3">Quick Filters</h2>
         <div class="flex flex-wrap gap-2">
-          <a href="/filter?video=4k120" class="px-3 py-2 bg-white border border-slate-300 text-slate-700 hover:bg-blue-50 hover:border-blue-300 transition-colors text-sm">
+          <a href="/filter?video=4k120" class="px-3 py-2 bg-card border border-border rounded-lg hover:border-primary/30 hover:text-foreground transition-all text-sm">
             4K Gaming?
           </a>
-          <a href="/filter?power=60" class="px-3 py-2 bg-white border border-slate-300 text-slate-700 hover:bg-blue-50 hover:border-blue-300 transition-colors text-sm">
+          <a href="/filter?power=60" class="px-3 py-2 bg-card border border-border rounded-lg hover:border-primary/30 hover:text-foreground transition-all text-sm">
             Fast Charging?
           </a>
-          <a href="/filter?video=8k" class="px-3 py-2 bg-white border border-slate-300 text-slate-700 hover:bg-blue-50 hover:border-blue-300 transition-colors text-sm">
+          <a href="/filter?video=8k" class="px-3 py-2 bg-card border border-border rounded-lg hover:border-primary/30 hover:text-foreground transition-all text-sm">
             8K Video?
           </a>
-          <a href="/filter?rate=40000" class="px-3 py-2 bg-white border border-slate-300 text-slate-700 hover:bg-blue-50 hover:border-blue-300 transition-colors text-sm">
+          <a href="/filter?rate=40000" class="px-3 py-2 bg-card border border-border rounded-lg hover:border-primary/30 hover:text-foreground transition-all text-sm">
             40+ Gbps?
           </a>
-          <a href="/filter?reversible=1" class="px-3 py-2 bg-white border border-slate-300 text-slate-700 hover:bg-blue-50 hover:border-blue-300 transition-colors text-sm">
+          <a href="/filter?reversible=1" class="px-3 py-2 bg-card border border-border rounded-lg hover:border-primary/30 hover:text-foreground transition-all text-sm">
             Reversible?
           </a>
         </div>
       </div>
 
       <!-- Filter Controls -->
-      <div class="mb-8 p-4 bg-gray-50 border border-gray-200">
+      <div class="mb-8 p-6 rounded-2xl bg-card border border-border">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <!-- Data Rate Filter -->
           <div>
-            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">Data Rate</label>
+            <label class="block text-sm font-semibold text-foreground mb-2">Data Rate</label>
             <div class="flex flex-wrap gap-2" id="rate-filters">
-              <button type="button" data-rate="" class="filter-chip px-3 py-1 border text-sm transition-colors">Any</button>
-              <button type="button" data-rate="1000" class="filter-chip px-3 py-1 border text-sm transition-colors">1+ Gbps</button>
-              <button type="button" data-rate="10000" class="filter-chip px-3 py-1 border text-sm transition-colors">10+ Gbps</button>
-              <button type="button" data-rate="40000" class="filter-chip px-3 py-1 border text-sm transition-colors">40+ Gbps</button>
+              <button type="button" data-rate="" class="filter-chip filter-chip-inactive">Any</button>
+              <button type="button" data-rate="1000" class="filter-chip filter-chip-inactive">1+ Gbps</button>
+              <button type="button" data-rate="10000" class="filter-chip filter-chip-inactive">10+ Gbps</button>
+              <button type="button" data-rate="40000" class="filter-chip filter-chip-inactive">40+ Gbps</button>
             </div>
           </div>
 
           <!-- Power Filter -->
           <div>
-            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">Power Delivery</label>
+            <label class="block text-sm font-semibold text-foreground mb-2">Power Delivery</label>
             <div class="flex flex-wrap gap-2" id="power-filters">
-              <button type="button" data-power="" class="filter-chip px-3 py-1 border text-sm transition-colors">Any</button>
-              <button type="button" data-power="15" class="filter-chip px-3 py-1 border text-sm transition-colors">15W+</button>
-              <button type="button" data-power="60" class="filter-chip px-3 py-1 border text-sm transition-colors">60W+</button>
-              <button type="button" data-power="100" class="filter-chip px-3 py-1 border text-sm transition-colors">100W+</button>
-              <button type="button" data-power="240" class="filter-chip px-3 py-1 border text-sm transition-colors">240W+</button>
+              <button type="button" data-power="" class="filter-chip filter-chip-inactive">Any</button>
+              <button type="button" data-power="15" class="filter-chip filter-chip-inactive">15W+</button>
+              <button type="button" data-power="60" class="filter-chip filter-chip-inactive">60W+</button>
+              <button type="button" data-power="100" class="filter-chip filter-chip-inactive">100W+</button>
+              <button type="button" data-power="240" class="filter-chip filter-chip-inactive">240W+</button>
             </div>
           </div>
 
           <!-- Video Filter -->
           <div>
-            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">Video Support</label>
+            <label class="block text-sm font-semibold text-foreground mb-2">Video Support</label>
             <div class="flex flex-col gap-2" id="video-filters">
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" data-video="4k60" class="video-checkbox w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                <span class="text-sm text-gray-700">4K@60Hz</span>
+                <input type="checkbox" data-video="4k60" class="video-checkbox w-4 h-4 border-border rounded focus:ring-primary">
+                <span class="text-sm">4K@60Hz</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" data-video="4k120" class="video-checkbox w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                <span class="text-sm text-gray-700">4K@120Hz</span>
+                <input type="checkbox" data-video="4k120" class="video-checkbox w-4 h-4 border-border rounded focus:ring-primary">
+                <span class="text-sm">4K@120Hz</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" data-video="8k" class="video-checkbox w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                <span class="text-sm text-gray-700">8K</span>
+                <input type="checkbox" data-video="8k" class="video-checkbox w-4 h-4 border-border rounded focus:ring-primary">
+                <span class="text-sm">8K</span>
               </label>
             </div>
           </div>
 
           <!-- Other Filters -->
           <div>
-            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">Other</label>
+            <label class="block text-sm font-semibold text-foreground mb-2">Other</label>
             <div class="flex flex-col gap-2">
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" id="reversible-filter" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                <span class="text-sm text-gray-700">Reversible only</span>
+                <input type="checkbox" id="reversible-filter" class="w-4 h-4 border-border rounded focus:ring-primary">
+                <span class="text-sm">Reversible only</span>
               </label>
             </div>
 
-            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2 mt-4">Category</label>
+            <label class="block text-sm font-semibold text-foreground mb-2 mt-4">Category</label>
             <div class="flex flex-wrap gap-2" id="category-filters">
-              <button type="button" data-category="" class="filter-chip px-3 py-1 border text-sm transition-colors">All</button>
+              <button type="button" data-category="" class="filter-chip filter-chip-inactive">All</button>
               {categoryList.map(cat => (
-                <button type="button" data-category={cat.slug} class="filter-chip px-3 py-1 border text-sm transition-colors">{cat.name}</button>
+                <button type="button" data-category={cat.slug} class="filter-chip filter-chip-inactive">{cat.name}</button>
               ))}
             </div>
           </div>
         </div>
 
         <!-- Clear Filters -->
-        <div class="mt-4 pt-4 border-t border-gray-200">
-          <button type="button" id="clear-filters" class="text-sm text-gray-600 hover:text-gray-900 underline">
+        <div class="mt-4 pt-4 border-t border-border">
+          <button type="button" id="clear-filters" class="text-sm hover:transition-colors underline">
             Clear all filters
           </button>
         </div>
       </div>
 
       <!-- Status -->
-      <div id="filter-status" class="mb-6 inline-flex items-center px-4 py-2 bg-blue-100 text-blue-900">
+      <div id="filter-status" class="mb-6 inline-flex items-center px-4 py-2 bg-primary/10 rounded-lg">
         <span class="font-medium" id="filter-status-text"></span>
       </div>
 
@@ -162,16 +162,16 @@ const description = 'Find cables by specifications: data rate, power delivery, v
 
       <!-- No Results -->
       <div id="no-results" class="text-center py-12" style="display: none;">
-        <div class="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-          <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="mx-auto w-24 h-24 bg-secondary rounded-full flex items-center justify-center mb-6">
+          <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
           </svg>
         </div>
-        <h2 class="text-2xl font-semibold text-gray-900 mb-2">No cables match these filters</h2>
-        <p class="text-gray-600 mb-6">
+        <h2 class="text-2xl font-semibold text-foreground mb-2">No cables match these filters</h2>
+        <p class="mb-6">
           Try adjusting your filter criteria.
         </p>
-        <button type="button" id="no-results-clear" class="px-4 py-2 bg-slate-800 text-white font-medium hover:bg-blue-700 transition-colors">
+        <button type="button" id="no-results-clear" class="btn btn-primary">
           Clear filters
         </button>
       </div>
@@ -249,25 +249,25 @@ const description = 'Find cables by specifications: data rate, power delivery, v
 
     function createCableCard(cable) {
       const confusionWarning = cable.confusion_points.length > 0
-        ? `<div class="mb-4 p-2 bg-amber-50 border border-amber-200">
-             <p class="text-amber-800 text-sm">${cable.confusion_points[0]}</p>
+        ? `<div class="mb-4 p-3 bg-warning/10 border border-warning/20 rounded-lg">
+             <p class="text-warning-foreground text-sm mb-0">${cable.confusion_points[0]}</p>
            </div>`
         : '';
 
       const videoTag = cable.has_video
-        ? '<span class="inline-block bg-purple-100 px-2 py-0.5 text-xs text-purple-700 ml-2">Video</span>'
+        ? '<span class="badge badge-muted ml-2">Video</span>'
         : '';
 
       return `
-        <div class="bg-white hover:shadow-lg hover:bg-blue-50 transition-shadow duration-200 border border-gray-300">
+        <div class="group relative bg-card border border-border rounded-2xl transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
           <a href="/${cable.categorySlug}/${cable.type.toLowerCase().replace(/[^a-z0-9]/g, '-')}" class="block p-6">
             <div class="flex justify-between items-start mb-4">
               <div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-1">${cable.type}${videoTag}</h3>
-                <p class="text-gray-600 text-sm">${cable.full_name}</p>
+                <h3 class="text-xl font-semibold text-foreground mb-1">${cable.type}${videoTag}</h3>
+                <p class="text-sm mb-0">${cable.full_name}</p>
               </div>
               <div class="text-right">
-                <span class="inline-block bg-slate-100 px-2 py-1 text-xs whitespace-nowrap text-slate-700 uppercase">
+                <span class="badge badge-muted">
                   ${cable.categoryName}
                 </span>
               </div>
@@ -275,28 +275,28 @@ const description = 'Find cables by specifications: data rate, power delivery, v
 
             <div class="grid grid-cols-2 gap-4 mb-4">
               <div>
-                <p class="text-gray-500 text-xs uppercase tracking-wide">Max Speed</p>
-                <p class="text-gray-900 font-medium">${formatDataRate(cable.max_rate_mbps)}</p>
+                <p class="text-xs mb-1">Max Speed</p>
+                <p class="text-foreground font-medium mb-0">${formatDataRate(cable.max_rate_mbps)}</p>
               </div>
               ${cable.max_power ? `
               <div>
-                <p class="text-gray-500 text-xs uppercase tracking-wide">Max Power</p>
-                <p class="text-gray-900 font-medium">${cable.max_power}W</p>
+                <p class="text-xs mb-1">Max Power</p>
+                <p class="text-foreground font-medium mb-0">${cable.max_power}W</p>
               </div>
               ` : ''}
             </div>
 
             <div class="mb-4">
-              <p class="text-gray-500 text-xs uppercase tracking-wide mb-1">Connector</p>
-              <p class="text-gray-900 text-sm">
+              <p class="text-xs mb-1">Connector</p>
+              <p class="text-foreground text-sm mb-0">
                 ${cable.pins} pins
-                ${cable.reversible ? '<span class="text-green-700 ml-1">(reversible)</span>' : ''}
+                ${cable.reversible ? '<span class="ml-1">(reversible)</span>' : ''}
               </p>
             </div>
 
             ${confusionWarning}
 
-            <p class="text-gray-600 text-sm line-clamp-2">${cable.notes}</p>
+            <p class="text-sm line-clamp-2 mb-0">${cable.notes}</p>
           </a>
         </div>
       `;
@@ -306,23 +306,15 @@ const description = 'Find cables by specifications: data rate, power delivery, v
       // Update rate chips
       document.querySelectorAll('#rate-filters button').forEach(btn => {
         const isActive = btn.dataset.rate === filters.rate;
-        btn.classList.toggle('bg-slate-800', isActive);
-        btn.classList.toggle('text-white', isActive);
-        btn.classList.toggle('border-slate-800', isActive);
-        btn.classList.toggle('bg-white', !isActive);
-        btn.classList.toggle('text-gray-700', !isActive);
-        btn.classList.toggle('border-gray-300', !isActive);
+        btn.classList.toggle('filter-chip-active', isActive);
+        btn.classList.toggle('filter-chip-inactive', !isActive);
       });
 
       // Update power chips
       document.querySelectorAll('#power-filters button').forEach(btn => {
         const isActive = btn.dataset.power === filters.power;
-        btn.classList.toggle('bg-slate-800', isActive);
-        btn.classList.toggle('text-white', isActive);
-        btn.classList.toggle('border-slate-800', isActive);
-        btn.classList.toggle('bg-white', !isActive);
-        btn.classList.toggle('text-gray-700', !isActive);
-        btn.classList.toggle('border-gray-300', !isActive);
+        btn.classList.toggle('filter-chip-active', isActive);
+        btn.classList.toggle('filter-chip-inactive', !isActive);
       });
 
       // Update video checkboxes
@@ -336,12 +328,8 @@ const description = 'Find cables by specifications: data rate, power delivery, v
       // Update category chips
       document.querySelectorAll('#category-filters button').forEach(btn => {
         const isActive = btn.dataset.category === filters.category;
-        btn.classList.toggle('bg-slate-800', isActive);
-        btn.classList.toggle('text-white', isActive);
-        btn.classList.toggle('border-slate-800', isActive);
-        btn.classList.toggle('bg-white', !isActive);
-        btn.classList.toggle('text-gray-700', !isActive);
-        btn.classList.toggle('border-gray-300', !isActive);
+        btn.classList.toggle('filter-chip-active', isActive);
+        btn.classList.toggle('filter-chip-inactive', !isActive);
       });
     }
 

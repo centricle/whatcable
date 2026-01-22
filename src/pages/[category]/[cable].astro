@@ -56,24 +56,24 @@ const description = `Complete technical specifications for ${cable.type} includi
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="bg-background">
+    <div class="max-w-5xl mx-auto px-4 py-8">
       <!-- Breadcrumb -->
       <nav class="mb-8 flex" aria-label="Breadcrumb">
-        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <ol class="inline-flex items-center space-x-2 text-sm">
           <li class="inline-flex items-center">
-            <a href="/" class="text-gray-700 hover:underline">Home</a>
+            <a href="/" class="hover:text-foreground transition-colors">Home</a>
           </li>
           <li>
             <div class="flex items-center">
-              <span class="mr-2 text-gray-400">/</span>
-              <a href={`/${category}`} class="text-gray-700 hover:underline">{categoryName}</a>
+              <span class="mx-2">/</span>
+              <a href={`/${category}`} class="hover:text-foreground transition-colors">{categoryName}</a>
             </div>
           </li>
           <li>
             <div class="flex items-center">
-              <span class="mr-2 text-gray-400">/</span>
-              <span class="text-gray-500 uppercase">{cable.type}</span>
+              <span class="mx-2">/</span>
+              <span class="text-foreground font-medium">{cable.type}</span>
             </div>
           </li>
         </ol>
@@ -82,236 +82,234 @@ const description = `Complete technical specifications for ${cable.type} includi
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Main Content -->
         <div class="lg:col-span-2">
-          <div class="bg-white">
-            <div class="mb-8">
-              <h1 class="text-4xl font-bold text-gray-900 mb-2">{cable.type}</h1>
-              <p class="text-xl text-gray-600 mb-4">{cable.full_name}</p>
-              <p class="text-sm text-gray-500 mb-4">
-                Standard: <span class="font-medium">{cable.standard_body}</span>
+          <div class="space-y-8">
+            <!-- Header -->
+            <div>
+              <h1 class="text-4xl font-bold text-foreground mb-2">{cable.type}</h1>
+              <p class="text-xl mb-4">{cable.full_name}</p>
+              <p class="text-sm mb-4">
+                Standard: <span class="font-medium text-foreground">{cable.standard_body}</span>
                 {cable.last_updated && (
                   <span class="ml-4">Last updated: {cable.last_updated}</span>
                 )}
               </p>
-              <p class="text-gray-700">{cable.notes}</p>
+              <p class="text-foreground">{cable.notes}</p>
             </div>
 
             <!-- Quick Specs -->
-            <div class="mb-8 border border-gray-300 p-6">
-              <h2 class="text-2xl font-semibold text-gray-900 mb-4">Quick Specifications</h2>
+            <div class="rounded-2xl border border-border bg-card p-6">
+              <h2 class="text-xl font-semibold text-foreground mb-4">Quick Specifications</h2>
               <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="text-center">
-                  <p class="mb-1 text-sm text-gray-500">Max Speed</p>
-                  <p class="mb-0 text-2xl font-bold text-gray-900">{formatDataRate(maxRate)}</p>
+                <div class="text-center p-4 rounded-xl bg-secondary/50 border border-border">
+                  <p class="mb-1 text-sm">Max Speed</p>
+                  <p class="mb-0 text-2xl font-bold text-foreground">{formatDataRate(maxRate)}</p>
                 </div>
                 {maxPower && (
-                  <div class="text-center">
-                    <p class="mb-1 text-sm text-gray-500">Max Power</p>
-                    <p class="mb-0 text-2xl font-bold text-gray-900">{maxPower}W</p>
+                  <div class="text-center p-4 rounded-xl bg-secondary/50 border border-border">
+                    <p class="mb-1 text-sm">Max Power</p>
+                    <p class="mb-0 text-2xl font-bold text-foreground">{maxPower}W</p>
                   </div>
                 )}
-                <div class="text-center">
-                  <p class="mb-1 text-sm text-gray-500">Pins</p>
-                  <p class="mb-0 text-2xl font-bold text-gray-900">{cable.connector.pins}</p>
+                <div class="text-center p-4 rounded-xl bg-secondary/50 border border-border">
+                  <p class="mb-1 text-sm">Pins</p>
+                  <p class="mb-0 text-2xl font-bold text-foreground">{cable.connector.pins}</p>
                 </div>
-                <div class="text-center">
-                  <p class="mb-1 text-sm text-gray-500">Reversible</p>
-                  <p class="mb-0 text-2xl font-bold text-gray-900">{cable.connector.reversible ? 'Yes' : 'No'}</p>
+                <div class="text-center p-4 rounded-xl bg-secondary/50 border border-border">
+                  <p class="mb-1 text-sm">Reversible</p>
+                  <p class="mb-0 text-2xl font-bold text-foreground">{cable.connector.reversible ? 'Yes' : 'No'}</p>
                 </div>
               </div>
             </div>
 
             <!-- Confusion Points / Warnings -->
             {cable.confusion_points.length > 0 && (
-              <div class="mb-8 border border-amber-300 bg-amber-50 p-6">
-                <h2 class="text-xl font-semibold text-amber-900 mb-4">⚠️ Common Confusion Points</h2>
-                <ul class="space-y-2">
+              <div class="rounded-2xl border border-warning/30 bg-warning/10 p-6">
+                <h2 class="text-xl font-semibold text-warning-foreground mb-4 flex items-center gap-2">
+                  <span>⚠</span> Common Confusion Points
+                </h2>
+                <ul class="space-y-2 list-none pl-0">
                   {cable.confusion_points.map((point) => (
-                    <li class="text-amber-800">{point}</li>
+                    <li class="text-warning-foreground">{point}</li>
                   ))}
                 </ul>
               </div>
             )}
 
-            <!-- Detailed Specifications -->
-            <div class="space-y-8">
-              <!-- Protocol Variants -->
-              <section>
-                <h2 class="text-2xl font-semibold text-gray-900 mb-4">Protocols &amp; Versions</h2>
-                <div class="overflow-x-auto">
-                  <table class="min-w-full divide-y divide-gray-200 border border-gray-300 text-sm whitespace-nowrap text-gray-500">
-                    <thead class="font-semibold">
+            <!-- Protocol Variants -->
+            <section>
+              <h2 class="text-2xl font-semibold text-foreground mb-4">Protocols & Versions</h2>
+              <div class="overflow-x-auto rounded-2xl border border-border">
+                <table class="min-w-full text-sm">
+                  <thead class="bg-secondary/50">
+                    <tr>
+                      <th class="px-4 py-3 text-left font-medium">Protocol</th>
+                      <th class="px-4 py-3 text-left font-medium">Data Rate</th>
+                      <th class="px-4 py-3 text-left font-medium">Power</th>
+                      <th class="px-4 py-3 text-left font-medium">Max Length</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-card divide-y divide-border">
+                    {Object.entries(cable.protocols).map(([protoName, specs]) => (
                       <tr>
-                        <th class="px-2 lg:px-6 py-3 tracking-wider">Protocol</th>
-                        <th class="px-2 lg:px-6 py-3 tracking-wider">Data Rate</th>
-                        <th class="px-2 lg:px-6 py-3 tracking-wider">Power</th>
-                        <th class="px-2 lg:px-6 py-3 tracking-wider">Max Length</th>
+                        <td class="px-4 py-3 font-medium text-foreground">
+                          {protoName}
+                          {specs.version && <span class="ml-1">({specs.version})</span>}
+                        </td>
+                        <td class="px-4 py-3">{specs.data_rate}</td>
+                        <td class="px-4 py-3">{specs.power_delivery || '—'}</td>
+                        <td class="px-4 py-3">{specs.max_length || '—'}</td>
                       </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                      {Object.entries(cable.protocols).map(([protoName, specs]) => (
-                        <tr>
-                          <td class="px-2 lg:px-6 py-4 font-medium text-gray-900">
-                            {protoName}
-                            {specs.version && <span class="text-gray-500 ml-1">({specs.version})</span>}
-                          </td>
-                          <td class="px-2 lg:px-6 py-4">{specs.data_rate}</td>
-                          <td class="px-2 lg:px-6 py-4">{specs.power_delivery || '—'}</td>
-                          <td class="px-2 lg:px-6 py-4">{specs.max_length || '—'}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
-                <!-- Protocol Features -->
-                <div class="mt-6 space-y-4">
-                  {Object.entries(cable.protocols).map(([protoName, specs]) => (
-                    specs.features.length > 0 && (
-                      <div class="border border-gray-200 p-4">
-                        <h4 class="font-medium text-gray-900 mb-2">{protoName} Features</h4>
-                        <div class="flex flex-wrap gap-2">
-                          {specs.features.map((feature) => (
-                            <span class="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-sm">
-                              {feature}
-                            </span>
-                          ))}
-                        </div>
-                        {specs.video_support && specs.video_support.length > 0 && (
-                          <div class="mt-2">
-                            <span class="text-sm text-gray-500">Video support: </span>
-                            <span class="text-sm text-gray-700">{specs.video_support.join(', ')}</span>
-                          </div>
-                        )}
-                        {specs.cable_requirements && (
-                          <p class="mt-2 text-sm text-gray-600">
-                            <span class="font-medium">Cable requirements:</span> {specs.cable_requirements}
-                          </p>
-                        )}
+              <!-- Protocol Features -->
+              <div class="mt-6 space-y-4">
+                {Object.entries(cable.protocols).map(([protoName, specs]) => (
+                  specs.features.length > 0 && (
+                    <div class="rounded-2xl border border-border bg-card p-6">
+                      <h4 class="font-medium text-foreground mb-2">{protoName} Features</h4>
+                      <div class="flex flex-wrap gap-2">
+                        {specs.features.map((feature) => (
+                          <span class="tag text-sm">{feature}</span>
+                        ))}
                       </div>
-                    )
-                  ))}
-                </div>
-              </section>
+                      {specs.video_support && specs.video_support.length > 0 && (
+                        <div class="mt-2">
+                          <span class="text-sm">Video support: </span>
+                          <span class="text-sm text-foreground">{specs.video_support.join(', ')}</span>
+                        </div>
+                      )}
+                      {specs.cable_requirements && (
+                        <p class="mt-2 text-sm">
+                          <span class="font-medium">Cable requirements:</span> {specs.cable_requirements}
+                        </p>
+                      )}
+                    </div>
+                  )
+                ))}
+              </div>
+            </section>
 
-              <!-- Physical Specifications -->
+            <!-- Physical Specifications -->
+            <section>
+              <h2 class="text-2xl font-semibold text-foreground mb-4">Connector Specifications</h2>
+              <div class="rounded-2xl border border-border bg-card p-6">
+                <dl class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="p-3 rounded-lg bg-secondary/30 border border-border">
+                    <dt class="text-sm mb-1">Shape</dt>
+                    <dd class="text-lg text-foreground capitalize">{cable.connector.shape}</dd>
+                  </div>
+                  <div class="p-3 rounded-lg bg-secondary/30 border border-border">
+                    <dt class="text-sm mb-1">Pins</dt>
+                    <dd class="text-lg text-foreground">{cable.connector.pins}{cable.connector.rows && ` (${cable.connector.rows} rows)`}</dd>
+                  </div>
+                  <div class="p-3 rounded-lg bg-secondary/30 border border-border">
+                    <dt class="text-sm mb-1">Width × Height</dt>
+                    <dd class="text-lg text-foreground">{cable.connector.width} × {cable.connector.height} {cable.connector.unit}</dd>
+                  </div>
+                  {cable.connector.depth && (
+                    <div class="p-3 rounded-lg bg-secondary/30 border border-border">
+                      <dt class="text-sm mb-1">Depth</dt>
+                      <dd class="text-lg text-foreground">{cable.connector.depth} {cable.connector.unit}</dd>
+                    </div>
+                  )}
+                  <div class="p-3 rounded-lg bg-secondary/30 border border-border">
+                    <dt class="text-sm mb-1">Reversible</dt>
+                    <dd class="text-lg text-foreground">{cable.connector.reversible ? 'Yes' : 'No'}</dd>
+                  </div>
+                  {cable.connector.pitch && (
+                    <div class="p-3 rounded-lg bg-secondary/30 border border-border">
+                      <dt class="text-sm mb-1">Pin Pitch</dt>
+                      <dd class="text-lg text-foreground">{cable.connector.pitch} mm</dd>
+                    </div>
+                  )}
+                </dl>
+              </div>
+            </section>
+
+            <!-- Electrical Specifications -->
+            {(cable.electrical.voltage_max || cable.electrical.current_max || cable.electrical.power_max) && (
               <section>
-                <h2 class="text-2xl font-semibold text-gray-900 mb-4">Connector Specifications</h2>
-                <div class="border border-gray-300 p-6">
+                <h2 class="text-2xl font-semibold text-foreground mb-4">Electrical Specifications</h2>
+                <div class="rounded-2xl border border-border bg-card p-6">
                   <dl class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <dt class="text-sm font-medium text-gray-500 uppercase">Shape</dt>
-                      <dd class="text-lg text-gray-900 capitalize">{cable.connector.shape}</dd>
-                    </div>
-                    <div>
-                      <dt class="text-sm font-medium text-gray-500 uppercase">Pins</dt>
-                      <dd class="text-lg text-gray-900">{cable.connector.pins}{cable.connector.rows && ` (${cable.connector.rows} rows)`}</dd>
-                    </div>
-                    <div>
-                      <dt class="text-sm font-medium text-gray-500 uppercase">Width × Height</dt>
-                      <dd class="text-lg text-gray-900">{cable.connector.width} × {cable.connector.height} {cable.connector.unit}</dd>
-                    </div>
-                    {cable.connector.depth && (
-                      <div>
-                        <dt class="text-sm font-medium text-gray-500 uppercase">Depth</dt>
-                        <dd class="text-lg text-gray-900">{cable.connector.depth} {cable.connector.unit}</dd>
+                    {cable.electrical.voltage_max && (
+                      <div class="p-3 rounded-lg bg-secondary/30 border border-border">
+                        <dt class="text-sm mb-1">Max Voltage</dt>
+                        <dd class="text-lg text-foreground">{cable.electrical.voltage_max}V</dd>
                       </div>
                     )}
-                    <div>
-                      <dt class="text-sm font-medium text-gray-500 uppercase">Reversible</dt>
-                      <dd class="text-lg text-gray-900">{cable.connector.reversible ? 'Yes' : 'No'}</dd>
-                    </div>
-                    {cable.connector.pitch && (
-                      <div>
-                        <dt class="text-sm font-medium text-gray-500 uppercase">Pin Pitch</dt>
-                        <dd class="text-lg text-gray-900">{cable.connector.pitch} mm</dd>
+                    {cable.electrical.current_max && (
+                      <div class="p-3 rounded-lg bg-secondary/30 border border-border">
+                        <dt class="text-sm mb-1">Max Current</dt>
+                        <dd class="text-lg text-foreground">{cable.electrical.current_max}A</dd>
+                      </div>
+                    )}
+                    {cable.electrical.power_max && (
+                      <div class="p-3 rounded-lg bg-secondary/30 border border-border">
+                        <dt class="text-sm mb-1">Max Power</dt>
+                        <dd class="text-lg text-foreground">{cable.electrical.power_max}W</dd>
+                      </div>
+                    )}
+                    {cable.electrical.impedance && (
+                      <div class="p-3 rounded-lg bg-secondary/30 border border-border">
+                        <dt class="text-sm mb-1">Impedance</dt>
+                        <dd class="text-lg text-foreground">{cable.electrical.impedance}</dd>
                       </div>
                     )}
                   </dl>
                 </div>
               </section>
+            )}
 
-              <!-- Electrical Specifications -->
-              {(cable.electrical.voltage_max || cable.electrical.current_max || cable.electrical.power_max) && (
-                <section>
-                  <h2 class="text-2xl font-semibold text-gray-900 mb-4">Electrical Specifications</h2>
-                  <div class="border border-gray-300 p-6">
-                    <dl class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {cable.electrical.voltage_max && (
-                        <div>
-                          <dt class="text-sm font-medium text-gray-500 uppercase">Max Voltage</dt>
-                          <dd class="text-lg text-gray-900">{cable.electrical.voltage_max}V</dd>
-                        </div>
-                      )}
-                      {cable.electrical.current_max && (
-                        <div>
-                          <dt class="text-sm font-medium text-gray-500 uppercase">Max Current</dt>
-                          <dd class="text-lg text-gray-900">{cable.electrical.current_max}A</dd>
-                        </div>
-                      )}
-                      {cable.electrical.power_max && (
-                        <div>
-                          <dt class="text-sm font-medium text-gray-500 uppercase">Max Power</dt>
-                          <dd class="text-lg text-gray-900">{cable.electrical.power_max}W</dd>
-                        </div>
-                      )}
-                      {cable.electrical.impedance && (
-                        <div>
-                          <dt class="text-sm font-medium text-gray-500 uppercase">Impedance</dt>
-                          <dd class="text-lg text-gray-900">{cable.electrical.impedance}</dd>
-                        </div>
-                      )}
-                    </dl>
+            <!-- Compatibility -->
+            <section>
+              <h2 class="text-2xl font-semibold text-foreground mb-4">Compatibility</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {cable.compatibility.backwards.length > 0 && (
+                  <div class="rounded-2xl border border-border bg-card p-6">
+                    <h3 class="font-semibold text-foreground mb-2">Backwards Compatible With</h3>
+                    <ul class="space-y-1 list-none pl-0 mb-0">
+                      {cable.compatibility.backwards.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
                   </div>
-                </section>
-              )}
-
-              <!-- Compatibility -->
-              <section>
-                <h2 class="text-2xl font-semibold text-gray-900 mb-4">Compatibility</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {cable.compatibility.backwards.length > 0 && (
-                    <div class="border border-gray-300 p-4">
-                      <h3 class="font-semibold text-gray-900 mb-2">Backwards Compatible With</h3>
-                      <ul class="space-y-1 text-gray-700">
-                        {cable.compatibility.backwards.map((item) => (
-                          <li>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  {cable.compatibility.forwards.length > 0 && (
-                    <div class="border border-gray-300 p-4">
-                      <h3 class="font-semibold text-gray-900 mb-2">Forward Compatible With</h3>
-                      <ul class="space-y-1 text-gray-700">
-                        {cable.compatibility.forwards.map((item) => (
-                          <li>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  {cable.compatibility.adapters_to.length > 0 && (
-                    <div class="border border-gray-300 p-4">
-                      <h3 class="font-semibold text-gray-900 mb-2">Can Adapt To</h3>
-                      <ul class="space-y-1 text-gray-700">
-                        {cable.compatibility.adapters_to.map((item) => (
-                          <li>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  {cable.compatibility.adapters_from.length > 0 && (
-                    <div class="border border-gray-300 p-4">
-                      <h3 class="font-semibold text-gray-900 mb-2">Can Adapt From</h3>
-                      <ul class="space-y-1 text-gray-700">
-                        {cable.compatibility.adapters_from.map((item) => (
-                          <li>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              </section>
-            </div>
+                )}
+                {cable.compatibility.forwards.length > 0 && (
+                  <div class="rounded-2xl border border-border bg-card p-6">
+                    <h3 class="font-semibold text-foreground mb-2">Forward Compatible With</h3>
+                    <ul class="space-y-1 list-none pl-0 mb-0">
+                      {cable.compatibility.forwards.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {cable.compatibility.adapters_to.length > 0 && (
+                  <div class="rounded-2xl border border-border bg-card p-6">
+                    <h3 class="font-semibold text-foreground mb-2">Can Adapt To</h3>
+                    <ul class="space-y-1 list-none pl-0 mb-0">
+                      {cable.compatibility.adapters_to.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {cable.compatibility.adapters_from.length > 0 && (
+                  <div class="rounded-2xl border border-border bg-card p-6">
+                    <h3 class="font-semibold text-foreground mb-2">Can Adapt From</h3>
+                    <ul class="space-y-1 list-none pl-0 mb-0">
+                      {cable.compatibility.adapters_from.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </section>
           </div>
         </div>
 
@@ -319,9 +317,9 @@ const description = `Complete technical specifications for ${cable.type} includi
         <div class="lg:col-span-1">
           <div class="space-y-6">
             <!-- Common Uses -->
-            <div class="border border-gray-300 bg-blue-50 p-6 pb-2">
-              <h3 class="text-lg font-semibold text-gray-900 mb-4">Common Uses</h3>
-              <ul class="space-y-1 text-gray-700 mb-4">
+            <div class="rounded-2xl border border-border bg-card p-6">
+              <h3 class="text-lg font-semibold text-foreground mb-4">Common Uses</h3>
+              <ul class="space-y-1 list-none pl-0 mb-0">
                 {cable.common_devices.map((device) => (
                   <li>{device}</li>
                 ))}
@@ -330,21 +328,19 @@ const description = `Complete technical specifications for ${cable.type} includi
 
             <!-- Buying Guide -->
             {cable.buying_guide && (
-              <div class="border border-gray-300 bg-green-50 p-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Buying Guide</h3>
-                <p class="text-gray-700">{cable.buying_guide}</p>
+              <div class="rounded-2xl border border-border bg-card p-6">
+                <h3 class="text-lg font-semibold text-foreground mb-4">Buying Guide</h3>
+                <p class="mb-0">{cable.buying_guide}</p>
               </div>
             )}
 
             <!-- Also Known As -->
             {cable.common_names.length > 1 && (
-              <div class="border border-gray-300 bg-blue-50 p-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Also Known As</h3>
+              <div class="rounded-2xl border border-border bg-card p-6">
+                <h3 class="text-lg font-semibold text-foreground mb-4">Also Known As</h3>
                 <div class="flex flex-wrap gap-2">
                   {cable.common_names.map((name) => (
-                    <span class="inline-block px-2 py-1 bg-white text-gray-700 border border-gray-200">
-                      {name}
-                    </span>
+                    <span class="tag text-sm">{name}</span>
                   ))}
                 </div>
               </div>
@@ -352,26 +348,26 @@ const description = `Complete technical specifications for ${cable.type} includi
 
             <!-- Data Sources -->
             {trustedSources.length > 0 && (
-              <div class="border border-gray-300 bg-blue-50 p-6 pb-2">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Data Sources</h3>
-                <ul class="space-y-3 text-sm">
+              <div class="rounded-2xl border border-border bg-card p-6">
+                <h3 class="text-lg font-semibold text-foreground mb-4">Data Sources</h3>
+                <ul class="space-y-3 text-sm list-none pl-0 mb-0">
                   {trustedSources.map((source) => (
                     <li>
                       <a
                         href={source.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="hover:underline font-medium"
+                        class="hover:font-medium"
                       >
                         {source.name}
                       </a>
                       {source.access_date && (
-                        <p class="text-gray-500 text-xs mt-1">
+                        <p class="text-xs mt-1 mb-0">
                           Retrieved: {source.access_date}
                         </p>
                       )}
                       {source.notes && (
-                        <p class="text-gray-600 text-xs mt-1">
+                        <p class="text-xs mt-1 mb-0">
                           {source.notes}
                         </p>
                       )}
