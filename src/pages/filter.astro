@@ -12,11 +12,13 @@ const clientCables = allCategories.flatMap(cat =>
       full_name: cable.full_name,
       categorySlug: cat.slug,
       categoryName: cat.name,
-      standard_body: cable.standard_body,
       max_rate_mbps: getMaxDataRate(cable),
       max_power: getNormalizedPowerWatts(cable),
       pins: cable.connector.pins,
+      width: cable.connector.width,
+      height: cable.connector.height,
       reversible: cable.connector.reversible,
+      common_devices: cable.common_devices,
       video_capabilities: getVideoCapabilities(cable),
       confusion_points: cable.confusion_points,
       notes: cable.notes
@@ -177,17 +179,26 @@ const description = 'Find cables by specifications: data rate, power delivery, v
     </div>
   </div>
 
-  <script define:vars={{ clientCables }}>
-    const cableData = clientCables;
+  <script type="application/json" id="cable-data" set:html={JSON.stringify(clientCables)}></script>
+  <script>
+    import { createCableCard } from '../scripts/cableCard';
+    import type { ClientCable } from '../scripts/cableCard';
 
-    function formatDataRate(mbps) {
-      if (mbps >= 1000) {
-        return `${mbps / 1000} Gbps`;
-      }
-      return `${mbps} Mbps`;
+    interface FilterableCable extends ClientCable {
+      video_capabilities: string[];
     }
 
-    function getFiltersFromURL() {
+    interface Filters {
+      rate: string;
+      power: string;
+      video: string[];
+      reversible: boolean;
+      category: string;
+    }
+
+    const cableData: FilterableCable[] = JSON.parse(document.getElementById('cable-data')!.textContent!);
+
+    function getFiltersFromURL(): Filters {
       const params = new URLSearchParams(window.location.search);
       return {
         rate: params.get('rate') || '',
@@ -198,7 +209,7 @@ const description = 'Find cables by specifications: data rate, power delivery, v
       };
     }
 
-    function updateURL(filters) {
+    function updateURL(filters: Filters) {
       const params = new URLSearchParams();
       if (filters.rate) params.set('rate', filters.rate);
       if (filters.power) params.set('power', filters.power);
@@ -210,7 +221,7 @@ const description = 'Find cables by specifications: data rate, power delivery, v
       window.history.replaceState({}, '', newURL);
     }
 
-    function filterCables(filters) {
+    function filterCables(filters: Filters): FilterableCable[] {
       return cableData.filter(cable => {
         // Data rate filter
         if (filters.rate) {
@@ -246,85 +257,31 @@ const description = 'Find cables by specifications: data rate, power delivery, v
       });
     }
 
-    function createCableCard(cable) {
-      const confusionWarning = cable.confusion_points.length > 0
-        ? `<div class="mb-4 alert-warning">
-             <p class="text-warning-foreground text-sm mb-0">${cable.confusion_points[0]}</p>
-           </div>`
-        : '';
-
-      return `
-        <div class="group relative card-interactive">
-          <a href="/${cable.categorySlug}/${cable.type.toLowerCase().replace(/[^a-z0-9]/g, '-')}" class="block p-6">
-            <div class="flex justify-between items-start mb-4">
-              <div>
-                <h3 class="text-xl font-semibold text-foreground mb-1">${cable.type}</h3>
-                <p class="text-sm mb-0">${cable.full_name}</p>
-              </div>
-              <div class="text-right">
-                <span class="badge badge-muted">
-                  ${cable.categoryName}
-                </span>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4 mb-4">
-              <div>
-                <p class="text-xs mb-1">Max Speed</p>
-                <p class="text-foreground font-medium mb-0">${formatDataRate(cable.max_rate_mbps)}</p>
-              </div>
-              ${cable.max_power ? `
-              <div>
-                <p class="text-xs mb-1">Max Power</p>
-                <p class="text-foreground font-medium mb-0">${cable.max_power}W</p>
-              </div>
-              ` : ''}
-            </div>
-
-            <div class="mb-4">
-              <p class="text-xs mb-1">Connector</p>
-              <p class="text-foreground text-sm mb-0">
-                ${cable.pins} pins
-                ${cable.reversible ? '<span class="ml-1">(reversible)</span>' : ''}
-              </p>
-            </div>
-
-            ${confusionWarning}
-
-            <div class="flex items-center gap-1 text-sm">
-              <span class="group-hover:underline">Learn more</span>
-              <span class="transition-transform group-hover:translate-x-0.5">→</span>
-            </div>
-          </a>
-        </div>
-      `;
-    }
-
-    function updateFilterUI(filters) {
+    function updateFilterUI(filters: Filters) {
       // Update rate chips
-      document.querySelectorAll('#rate-filters button').forEach(btn => {
+      document.querySelectorAll<HTMLButtonElement>('#rate-filters button').forEach(btn => {
         const isActive = btn.dataset.rate === filters.rate;
         btn.classList.toggle('filter-chip-active', isActive);
         btn.classList.toggle('filter-chip-inactive', !isActive);
       });
 
       // Update power chips
-      document.querySelectorAll('#power-filters button').forEach(btn => {
+      document.querySelectorAll<HTMLButtonElement>('#power-filters button').forEach(btn => {
         const isActive = btn.dataset.power === filters.power;
         btn.classList.toggle('filter-chip-active', isActive);
         btn.classList.toggle('filter-chip-inactive', !isActive);
       });
 
       // Update video checkboxes
-      document.querySelectorAll('.video-checkbox').forEach(cb => {
-        cb.checked = filters.video.includes(cb.dataset.video);
+      document.querySelectorAll<HTMLInputElement>('.video-checkbox').forEach(cb => {
+        cb.checked = filters.video.includes(cb.dataset.video || '');
       });
 
       // Update reversible checkbox
-      document.getElementById('reversible-filter').checked = filters.reversible;
+      (document.getElementById('reversible-filter') as HTMLInputElement).checked = filters.reversible;
 
       // Update category chips
-      document.querySelectorAll('#category-filters button').forEach(btn => {
+      document.querySelectorAll<HTMLButtonElement>('#category-filters button').forEach(btn => {
         const isActive = btn.dataset.category === filters.category;
         btn.classList.toggle('filter-chip-active', isActive);
         btn.classList.toggle('filter-chip-inactive', !isActive);
@@ -336,12 +293,12 @@ const description = 'Find cables by specifications: data rate, power delivery, v
       updateFilterUI(filters);
 
       const results = filterCables(filters);
-      const resultsEl = document.getElementById('filter-results');
-      const statusEl = document.getElementById('filter-status-text');
-      const noResultsEl = document.getElementById('no-results');
+      const resultsEl = document.getElementById('filter-results')!;
+      const statusEl = document.getElementById('filter-status-text')!;
+      const noResultsEl = document.getElementById('no-results')!;
 
       // Build status text
-      const filterParts = [];
+      const filterParts: string[] = [];
       if (filters.rate) filterParts.push(`${parseInt(filters.rate)/1000}+ Gbps`);
       if (filters.power) filterParts.push(`${filters.power}W+`);
       if (filters.video.length) filterParts.push(filters.video.join(', '));
@@ -371,35 +328,36 @@ const description = 'Find cables by specifications: data rate, power delivery, v
       applyFilters();
 
       // Rate filter clicks
-      document.querySelectorAll('#rate-filters button').forEach(btn => {
+      document.querySelectorAll<HTMLButtonElement>('#rate-filters button').forEach(btn => {
         btn.addEventListener('click', () => {
           const filters = getFiltersFromURL();
-          filters.rate = btn.dataset.rate;
+          filters.rate = btn.dataset.rate || '';
           updateURL(filters);
           applyFilters();
         });
       });
 
       // Power filter clicks
-      document.querySelectorAll('#power-filters button').forEach(btn => {
+      document.querySelectorAll<HTMLButtonElement>('#power-filters button').forEach(btn => {
         btn.addEventListener('click', () => {
           const filters = getFiltersFromURL();
-          filters.power = btn.dataset.power;
+          filters.power = btn.dataset.power || '';
           updateURL(filters);
           applyFilters();
         });
       });
 
       // Video checkbox changes
-      document.querySelectorAll('.video-checkbox').forEach(cb => {
+      document.querySelectorAll<HTMLInputElement>('.video-checkbox').forEach(cb => {
         cb.addEventListener('change', () => {
           const filters = getFiltersFromURL();
+          const videoValue = cb.dataset.video || '';
           if (cb.checked) {
-            if (!filters.video.includes(cb.dataset.video)) {
-              filters.video.push(cb.dataset.video);
+            if (!filters.video.includes(videoValue)) {
+              filters.video.push(videoValue);
             }
           } else {
-            filters.video = filters.video.filter(v => v !== cb.dataset.video);
+            filters.video = filters.video.filter(v => v !== videoValue);
           }
           updateURL(filters);
           applyFilters();
@@ -407,26 +365,26 @@ const description = 'Find cables by specifications: data rate, power delivery, v
       });
 
       // Reversible checkbox
-      document.getElementById('reversible-filter').addEventListener('change', (e) => {
+      document.getElementById('reversible-filter')!.addEventListener('change', (e) => {
         const filters = getFiltersFromURL();
-        filters.reversible = e.target.checked;
+        filters.reversible = (e.target as HTMLInputElement).checked;
         updateURL(filters);
         applyFilters();
       });
 
       // Category filter clicks
-      document.querySelectorAll('#category-filters button').forEach(btn => {
+      document.querySelectorAll<HTMLButtonElement>('#category-filters button').forEach(btn => {
         btn.addEventListener('click', () => {
           const filters = getFiltersFromURL();
-          filters.category = btn.dataset.category;
+          filters.category = btn.dataset.category || '';
           updateURL(filters);
           applyFilters();
         });
       });
 
       // Clear filters buttons
-      document.getElementById('clear-filters').addEventListener('click', clearFilters);
-      document.getElementById('no-results-clear').addEventListener('click', clearFilters);
+      document.getElementById('clear-filters')!.addEventListener('click', clearFilters);
+      document.getElementById('no-results-clear')!.addEventListener('click', clearFilters);
     });
   </script>
 </BaseLayout>

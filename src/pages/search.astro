@@ -17,9 +17,6 @@ const popularSearches = [
 // Prepare minimal client-side data for search
 const clientCables = allCategories.flatMap(cat =>
   cat.cables.map(cable => {
-    const primaryProtocol = Object.keys(cable.protocols)[0];
-    const primaryProtoInfo = cable.protocols[primaryProtocol];
-
     return {
       // Search fields
       type: cable.type,
@@ -30,12 +27,14 @@ const clientCables = allCategories.flatMap(cat =>
       features: Object.values(cable.protocols).flatMap(p => p.features),
       data_rates: Object.values(cable.protocols).map(p => p.data_rate_mbps),
 
-      // Display fields (minimal)
+      // Display fields
       categorySlug: cat.slug,
-      standard_body: cable.standard_body,
+      categoryName: cat.name,
       max_rate_mbps: getMaxDataRate(cable),
       max_power: getMaxPower(cable),
       pins: cable.connector.pins,
+      width: cable.connector.width,
+      height: cable.connector.height,
       reversible: cable.connector.reversible,
       confusion_points: cable.confusion_points,
       notes: cable.notes
@@ -192,25 +191,28 @@ const description = 'Search the comprehensive cable and connector database by ty
     </div>
   </div>
 
-  <script define:vars={{ clientCables }}>
-    // Cable data and search functionality
-    const cableData = clientCables;
+  <script type="application/json" id="cable-data" set:html={JSON.stringify(clientCables)}></script>
+  <script>
+    import { createCableCard } from '../scripts/cableCard';
+    import type { ClientCable } from '../scripts/cableCard';
 
-    function formatDataRate(mbps) {
-      if (mbps >= 1000) {
-        return `${mbps / 1000} Gbps`;
-      }
-      return `${mbps} Mbps`;
+    interface SearchableCable extends ClientCable {
+      common_names: string[];
+      protocol_names: string[];
+      features: string[];
+      data_rates: number[];
     }
 
-    function searchCables(query) {
+    const cableData: SearchableCable[] = JSON.parse(document.getElementById('cable-data')!.textContent!);
+
+    function searchCables(query: string): SearchableCable[] {
       if (!query) return [];
 
       const searchTerm = query.toLowerCase();
 
       // Check for data rate pattern (e.g., "40 Gbps", "480 Mbps", "10Gbps")
       const dataRateMatch = query.match(/(\d+\.?\d*)\s*(gbps|mbps|gb\/s|mb\/s)/i);
-      let targetRateMbps = null;
+      let targetRateMbps: number | null = null;
       if (dataRateMatch) {
         const value = parseFloat(dataRateMatch[1]);
         const unit = dataRateMatch[2].toLowerCase();
@@ -233,7 +235,7 @@ const description = 'Search the comprehensive cable and connector database by ty
         );
 
         // Data rate matching
-        const rateMatch = targetRateMbps ? cable.data_rates.some(rate => rate >= targetRateMbps) : false;
+        const rateMatch = targetRateMbps ? cable.data_rates.some(rate => rate >= targetRateMbps!) : false;
 
         // Power matching
         const powerMatchResult = targetPower ? (cable.max_power && cable.max_power >= targetPower) : false;
@@ -242,80 +244,20 @@ const description = 'Search the comprehensive cable and connector database by ty
       });
     }
 
-    function highlightSearchTerm(text, searchTerm) {
-      if (!searchTerm || !text) return text;
-      const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-      return text.replace(regex, '<mark class="bg-warning/30 text-foreground rounded px-0.5">$1</mark>');
-    }
-
-    function createCableCard(cable, searchTerm) {
-      const confusionWarning = cable.confusion_points.length > 0
-        ? `<div class="mb-4 alert-warning">
-             <p class="text-warning-foreground text-sm mb-0">${cable.confusion_points[0]}</p>
-           </div>`
-        : '';
-
-      return `
-        <div class="group relative card-interactive">
-          <a href="/${cable.categorySlug}/${cable.type.toLowerCase().replace(/[^a-z0-9]/g, '-')}" class="block p-6">
-            <div class="flex justify-between items-start mb-4">
-              <div>
-                <h3 class="text-xl font-semibold text-foreground mb-1">${highlightSearchTerm(cable.type, searchTerm)}</h3>
-                <p class="text-sm mb-0">${highlightSearchTerm(cable.full_name, searchTerm)}</p>
-              </div>
-              <div class="text-right">
-                <span class="badge badge-muted">
-                  ${cable.standard_body}
-                </span>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4 mb-4">
-              <div>
-                <p class="text-xs mb-1">Max Speed</p>
-                <p class="text-foreground font-medium mb-0">${formatDataRate(cable.max_rate_mbps)}</p>
-              </div>
-              ${cable.max_power ? `
-              <div>
-                <p class="text-xs mb-1">Max Power</p>
-                <p class="text-foreground font-medium mb-0">${cable.max_power}W</p>
-              </div>
-              ` : ''}
-            </div>
-
-            <div class="mb-4">
-              <p class="text-xs mb-1">Connector</p>
-              <p class="text-foreground text-sm mb-0">
-                ${cable.pins} pins
-                ${cable.reversible ? '<span class="ml-1">(reversible)</span>' : ''}
-              </p>
-            </div>
-
-            ${confusionWarning}
-
-            <div class="flex items-center gap-1 text-sm">
-              <span class="group-hover:underline">Learn more</span>
-              <span class="transition-transform group-hover:translate-x-0.5">→</span>
-            </div>
-          </a>
-        </div>
-      `;
-    }
-
     function performSearch() {
       const urlParams = new URLSearchParams(window.location.search);
       const query = urlParams.get('q') || '';
-      const searchInput = document.querySelector('input[name="q"]');
+      const searchInput = document.querySelector<HTMLInputElement>('input[name="q"]');
 
       if (searchInput) {
         searchInput.value = query;
       }
 
-      const defaultContent = document.getElementById('default-content');
-      const loadingEl = document.getElementById('search-loading');
-      const statusEl = document.getElementById('search-status');
-      const resultsEl = document.getElementById('search-results');
-      const noResultsEl = document.getElementById('no-results');
+      const defaultContent = document.getElementById('default-content')!;
+      const loadingEl = document.getElementById('search-loading')!;
+      const statusEl = document.getElementById('search-status')!;
+      const resultsEl = document.getElementById('search-results')!;
+      const noResultsEl = document.getElementById('no-results')!;
 
       if (!query) {
         // Show default content
@@ -339,8 +281,8 @@ const description = 'Search the comprehensive cable and connector database by ty
       // Simulate brief loading delay for UX
       setTimeout(() => {
         const results = searchCables(query);
-        const statusTextEl = document.getElementById('search-status-text');
-        const noResultsQueryEl = document.getElementById('no-results-query');
+        const statusTextEl = document.getElementById('search-status-text')!;
+        const noResultsQueryEl = document.getElementById('no-results-query')!;
 
         // Hide loading
         loadingEl.style.display = 'none';
@@ -351,7 +293,7 @@ const description = 'Search the comprehensive cable and connector database by ty
 
         if (results.length > 0) {
           // Show results
-          resultsEl.innerHTML = results.map(cable => createCableCard(cable, query)).join('');
+          resultsEl.innerHTML = results.map(cable => createCableCard(cable, { highlightTerm: query })).join('');
           resultsEl.style.display = 'grid';
           noResultsEl.style.display = 'none';
         } else {
@@ -373,8 +315,8 @@ const description = 'Search the comprehensive cable and connector database by ty
         form.addEventListener('submit', (e) => {
           e.preventDefault();
           const formData = new FormData(form);
-          const query = formData.get('q');
-          const url = new URL(window.location);
+          const query = formData.get('q') as string;
+          const url = new URL(window.location.href);
           url.searchParams.set('q', query);
           window.history.pushState({}, '', url);
           performSearch();
