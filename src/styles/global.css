@@ -8,7 +8,8 @@
   --color-card-foreground: oklch(0.25 0.02 60);
   --color-primary: oklch(0.92 0.025 78);      /* warm tan, also used for header */
   --color-primary-foreground: oklch(0.25 0.02 25);
-  --color-secondary: oklch(0.95 0.01 80);     /* absorbs muted */
+  --color-secondary: oklch(0.95 0.01 80);    /* absorbs muted */
+  --color-svg-inset: oklch(0.8 0.01 80);     /* darker fill for SVG connector icons */
   --color-muted-foreground: oklch(0.3 0.02 60);
   --color-border: oklch(0.9 0.01 80);
   --color-accent: oklch(0.97 0.02 68);        /* cream/tan for logo, highlights */

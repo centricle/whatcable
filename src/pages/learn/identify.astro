@@ -2,17 +2,17 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ConnectorPicker from '../../components/ConnectorPicker.astro';
 
-const title = "Identify Your USB Connector - WhatCable";
-const description = "Visual guide to identify USB connectors. Click on the shape that matches your cable to learn what it is and what it's used for.";
+const title = "Identify Your Connector - WhatCable";
+const description = "Visual guide to identify connectors. Click on the shape that matches your cable to learn what it is and what it's used for.";
 ---
 
 <BaseLayout title={title} description={description}>
   <!-- Hero -->
   <div class="bg-primary">
-    <div class="max-w-4xl mx-auto px-4 py-12">
-      <h1 class="text-3xl sm:text-4xl font-bold mb-4">Identify Your USB Connector</h1>
+    <div class="max-w-4xl mx-auto px-4 py-6">
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">Identify Your Connector</h1>
       <p>
-        Click the shape that matches the end of your cable.
+        Click the shape that matches your cable or port.
       </p>
     </div>
   </div>
@@ -20,41 +20,33 @@ const description = "Visual guide to identify USB connectors. Click on the shape
   <div class="max-w-4xl mx-auto px-4 py-12">
     <ConnectorPicker />
 
-    <div class="mt-12 pt-8 border-t border-border">
-      <h2 class="text-xl font-bold text-foreground mb-4">Still Confused?</h2>
+    <div class="mt-8 pt-8 border-t border-border">
+      <h2 class="text-xl font-bold text-foreground mb-4">Quick Tips</h2>
       <p class="mb-4">
-        USB connectors can be tricky to tell apart, especially Mini and Micro USB. Here are some tips:
+        Here are some quick ways to identify common connectors:
       </p>
       <ul class="space-y-2 mb-6 list-none pl-0">
         <li class="flex gap-2">
           <span class="font-bold">•</span>
-          <span><strong class="text-foreground">USB-C</strong> is the only reversible one. It works either way you plug it in.</span>
+          <span><strong class="text-foreground">USB-C</strong> is small and reversible. Works either way you plug it in.</span>
         </li>
         <li class="flex gap-2">
           <span class="font-bold">•</span>
-          <span><strong class="text-foreground">USB-A</strong> is the classic rectangular one on computers and chargers.</span>
+          <span><strong class="text-foreground">HDMI</strong> is trapezoidal (wider on top). The standard for TVs and monitors.</span>
         </li>
         <li class="flex gap-2">
           <span class="font-bold">•</span>
-          <span><strong class="text-foreground">USB-B</strong> is almost square, often found on printers.</span>
+          <span><strong class="text-foreground">DisplayPort</strong> looks like HDMI but has one corner cut off.</span>
         </li>
         <li class="flex gap-2">
           <span class="font-bold">•</span>
-          <span><strong class="text-foreground">Micro USB</strong> is thin and flat (about 2mm tall). Common on older phones.</span>
+          <span><strong class="text-foreground">3.5mm jack</strong> is the classic headphone plug with visible rings.</span>
         </li>
         <li class="flex gap-2">
           <span class="font-bold">•</span>
-          <span><strong class="text-foreground">Mini USB</strong> is thicker (about 3mm tall) and taller. Found on old cameras and PS3 controllers.</span>
+          <span><strong class="text-foreground">XLR</strong> is circular with 3 pins. Standard for professional microphones.</span>
         </li>
       </ul>
-
-      <div class="rounded-xl bg-primary/10 border border-primary/20 p-4">
-        <p class="text-foreground mb-0">
-          <strong>Want to learn more?</strong> Check out our
-          <a href="/learn" class="hover:underline">USB Cable Primer</a>
-          to understand what the different USB versions and specs actually mean.
-        </p>
-      </div>
     </div>
   </div>
 </BaseLayout>

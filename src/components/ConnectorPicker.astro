@@ -1,6 +1,6 @@
 ---
 /**
- * ConnectorPicker - Visual USB connector identification tool
+ * ConnectorPicker - Visual connector identification tool
  * Users click on a connector silhouette to see what it is and learn more.
  */
 
@@ -14,103 +14,390 @@ interface ConnectorInfo {
   detailUrl: string;
 }
 
-const connectors: ConnectorInfo[] = [
+interface Category {
+  slug: string;
+  name: string;
+  connectors: ConnectorInfo[];
+}
+
+const categories: Category[] = [
   {
-    id: 'usb-c',
-    name: 'USB-C',
-    fullName: 'USB Type-C',
-    description: 'The modern universal connector. Small, reversible, and capable of high speeds and power delivery. Found on most new devices.',
-    commonDevices: ['Modern smartphones (Android)', 'MacBooks & newer laptops', 'Nintendo Switch', 'Tablets', 'External SSDs'],
-    limitations: ['Capabilities vary wildly by cable', 'Same connector can be USB 2.0 or USB4', 'Not all cables support video or fast charging'],
-    detailUrl: '/usb/usb-c'
+    slug: 'usb',
+    name: 'USB',
+    connectors: [
+      {
+        id: 'usb-c',
+        name: 'USB-C',
+        fullName: 'USB Type-C',
+        description: 'The modern universal connector. Small, reversible, and capable of high speeds and power delivery. Found on most new devices.',
+        commonDevices: ['Modern smartphones (Android)', 'MacBooks & newer laptops', 'Nintendo Switch', 'Tablets', 'External SSDs'],
+        limitations: ['Capabilities vary wildly by cable', 'Same connector can be USB 2.0 or USB4', 'Not all cables support video or fast charging'],
+        detailUrl: '/usb/usb-c'
+      },
+      {
+        id: 'usb-a',
+        name: 'USB-A',
+        fullName: 'USB Standard-A',
+        description: 'The classic rectangular USB connector. Non-reversible (there\'s always a "right way"). Still ubiquitous on computers and chargers.',
+        commonDevices: ['Desktop computers', 'Laptops (host ports)', 'Wall chargers', 'USB hubs', 'Flash drives'],
+        limitations: ['Not reversible', 'Max speed is 10 Gbps (USB 3.2 Gen 2)', 'Being phased out in favor of USB-C'],
+        detailUrl: '/usb/usb-a'
+      },
+      {
+        id: 'usb-b',
+        name: 'USB-B',
+        fullName: 'USB Standard-B',
+        description: 'The square-ish connector with beveled top corners. Often called "printer USB" but used on many peripherals.',
+        commonDevices: ['Printers', 'Scanners', 'Audio interfaces', 'MIDI controllers', 'Older external drives'],
+        limitations: ['Large and bulky', 'USB 3.0 variant looks different', 'Being replaced by USB-C'],
+        detailUrl: '/usb/usb-b'
+      },
+      {
+        id: 'micro-usb',
+        name: 'Micro USB',
+        fullName: 'USB Micro-B',
+        description: 'The small, flat, trapezoidal connector. Was standard on Android phones before USB-C. Still common on budget devices.',
+        commonDevices: ['Older Android phones', 'Kindle e-readers', 'Bluetooth speakers', 'PS4 controllers', 'Portable chargers'],
+        limitations: ['Not reversible', 'Fragile connector', 'Max USB 2.0 speed (480 Mbps) for standard version', 'Some cables are charge-only'],
+        detailUrl: '/usb/micro-usb'
+      },
+      {
+        id: 'mini-usb',
+        name: 'Mini USB',
+        fullName: 'USB Mini-B',
+        description: 'The older, taller small connector. Largely obsolete but still found on some older devices. Thicker than Micro USB.',
+        commonDevices: ['PS3 controllers', 'Older cameras', 'TI calculators', 'Old GPS units', 'Older GoPros'],
+        limitations: ['Deprecated since 2007', 'No USB 3.0 variant exists', 'Less durable than Micro USB', 'Cables getting hard to find'],
+        detailUrl: '/usb/mini-usb'
+      },
+      {
+        id: 'lightning',
+        name: 'Lightning',
+        fullName: 'Apple Lightning',
+        description: 'Apple\'s proprietary 8-pin connector. Reversible and compact. Being phased out in favor of USB-C on newer Apple devices.',
+        commonDevices: ['iPhones (before iPhone 15)', 'iPads (older models)', 'AirPods', 'Magic Keyboard/Mouse/Trackpad', 'Apple TV remotes'],
+        limitations: ['Apple proprietary (requires MFi licensing)', 'Max USB 2.0 speed (480 Mbps)', 'Being replaced by USB-C', 'Cables must be certified'],
+        detailUrl: '/usb/lightning'
+      }
+    ]
   },
   {
-    id: 'usb-a',
-    name: 'USB-A',
-    fullName: 'USB Standard-A',
-    description: 'The classic rectangular USB connector. Non-reversible (there\'s always a "right way"). Still ubiquitous on computers and chargers.',
-    commonDevices: ['Desktop computers', 'Laptops (host ports)', 'Wall chargers', 'USB hubs', 'Flash drives'],
-    limitations: ['Not reversible', 'Max speed is 10 Gbps (USB 3.2 Gen 2)', 'Being phased out in favor of USB-C'],
-    detailUrl: '/usb/usb-a'
+    slug: 'video',
+    name: 'Video',
+    connectors: [
+      {
+        id: 'hdmi',
+        name: 'HDMI',
+        fullName: 'High-Definition Multimedia Interface',
+        description: 'The standard for TVs and monitors. Carries both video and audio. Different versions support different resolutions and refresh rates.',
+        commonDevices: ['TVs', 'Monitors', 'Gaming consoles', 'Blu-ray players', 'Streaming devices'],
+        limitations: ['Version matters (HDMI 2.1 vs 2.0 vs 1.4)', 'Cable certification affects bandwidth', 'Standard cables max out at 10m'],
+        detailUrl: '/video/hdmi'
+      },
+      {
+        id: 'displayport',
+        name: 'DisplayPort',
+        fullName: 'DisplayPort',
+        description: 'High-performance video connector common on PC monitors and graphics cards. Supports daisy-chaining and higher refresh rates than HDMI.',
+        commonDevices: ['PC monitors', 'Graphics cards', 'Laptops', 'Docking stations', 'Professional displays'],
+        limitations: ['Less common on TVs', 'Locking mechanism can break', 'Version determines max resolution/refresh'],
+        detailUrl: '/video/displayport'
+      },
+      {
+        id: 'dvi',
+        name: 'DVI',
+        fullName: 'Digital Visual Interface',
+        description: 'Legacy digital video connector with a wide rectangular shape. Being replaced by HDMI and DisplayPort but still found on older equipment.',
+        commonDevices: ['Older monitors', 'Desktop graphics cards', 'Projectors', 'KVM switches', 'Legacy equipment'],
+        limitations: ['No audio support', 'Large and bulky', 'Max 2560x1600 (dual-link)', 'Being phased out'],
+        detailUrl: '/video/dvi'
+      },
+      {
+        id: 'vga',
+        name: 'VGA',
+        fullName: 'Video Graphics Array',
+        description: 'The classic analog video connector with 15 pins in a D-shape. Largely obsolete but still found on projectors and legacy equipment.',
+        commonDevices: ['Projectors', 'Older monitors', 'Legacy computers', 'Some KVM switches', 'Industrial equipment'],
+        limitations: ['Analog only (no digital)', 'No audio', 'Max 2048x1536 (degraded quality)', 'Susceptible to interference'],
+        detailUrl: '/video/vga'
+      }
+    ]
   },
   {
-    id: 'usb-b',
-    name: 'USB-B',
-    fullName: 'USB Standard-B',
-    description: 'The square-ish connector with beveled top corners. Often called "printer USB" but used on many peripherals.',
-    commonDevices: ['Printers', 'Scanners', 'Audio interfaces', 'MIDI controllers', 'Older external drives'],
-    limitations: ['Large and bulky', 'USB 3.0 variant looks different', 'Being replaced by USB-C'],
-    detailUrl: '/usb/usb-b'
+    slug: 'audio',
+    name: 'Audio',
+    connectors: [
+      {
+        id: 'audio-35mm',
+        name: '3.5mm',
+        fullName: '3.5mm TRS/TRRS Jack',
+        description: 'The ubiquitous headphone jack. TRS (3 segments) for stereo, TRRS (4 segments) adds a microphone channel.',
+        commonDevices: ['Headphones', 'Earbuds', 'Portable speakers', 'Car aux inputs', 'Laptops and phones'],
+        limitations: ['TRS vs TRRS compatibility issues', 'Analog signal degrades over distance', 'Being removed from phones', 'No power delivery'],
+        detailUrl: '/audio/35mm'
+      },
+      {
+        id: 'audio-635mm',
+        name: '6.35mm',
+        fullName: '6.35mm (1/4") TRS Jack',
+        description: 'The professional audio jack, also called quarter-inch. Standard on instruments, amplifiers, and studio equipment.',
+        commonDevices: ['Electric guitars', 'Studio headphones', 'Amplifiers', 'Mixing consoles', 'Synthesizers'],
+        limitations: ['Too large for portable devices', 'Unbalanced cables pick up interference', 'TS vs TRS compatibility varies'],
+        detailUrl: '/audio/635mm'
+      },
+      {
+        id: 'xlr',
+        name: 'XLR',
+        fullName: 'XLR Connector',
+        description: 'Professional balanced audio connector. The circular 3-pin design is standard for microphones and pro audio equipment.',
+        commonDevices: ['Microphones', 'PA systems', 'Studio monitors', 'Audio interfaces', 'DMX lighting'],
+        limitations: ['Large connector size', 'Overkill for consumer use', 'Requires balanced equipment for full benefit'],
+        detailUrl: '/audio/xlr'
+      },
+      {
+        id: 'rca',
+        name: 'RCA',
+        fullName: 'RCA Connector',
+        description: 'The colored circular connectors (red/white for audio, yellow for video). Common on home audio and legacy video equipment.',
+        commonDevices: ['Home stereos', 'Turntables', 'Older TVs', 'DVD players', 'Subwoofers'],
+        limitations: ['Unbalanced (susceptible to noise)', 'No locking mechanism', 'Separate cable per channel', 'Being replaced by HDMI/optical'],
+        detailUrl: '/audio/rca'
+      },
+      {
+        id: 'optical',
+        name: 'Optical',
+        fullName: 'TOSLINK / Optical S/PDIF',
+        description: 'Digital audio over fiber optic cable. The square connector with a rounded top carries audio as light pulses.',
+        commonDevices: ['Soundbars', 'AV receivers', 'Game consoles', 'TVs', 'CD/DVD players'],
+        limitations: ['Fragile fiber cable', 'No Dolby Atmos/DTS:X support', 'Max 5.1 surround (compressed)', 'Short max cable length'],
+        detailUrl: '/audio/optical'
+      }
+    ]
   },
   {
-    id: 'micro-usb',
-    name: 'Micro USB',
-    fullName: 'USB Micro-B',
-    description: 'The small, flat, trapezoidal connector. Was standard on Android phones before USB-C. Still common on budget devices.',
-    commonDevices: ['Older Android phones', 'Kindle e-readers', 'Bluetooth speakers', 'PS4 controllers', 'Portable chargers'],
-    limitations: ['Not reversible', 'Fragile connector', 'Max USB 2.0 speed (480 Mbps) for standard version', 'Some cables are charge-only'],
-    detailUrl: '/usb/micro-usb'
-  },
-  {
-    id: 'mini-usb',
-    name: 'Mini USB',
-    fullName: 'USB Mini-B',
-    description: 'The older, taller small connector. Largely obsolete but still found on some older devices. Thicker than Micro USB.',
-    commonDevices: ['PS3 controllers', 'Older cameras', 'TI calculators', 'Old GPS units', 'Older GoPros'],
-    limitations: ['Deprecated since 2007', 'No USB 3.0 variant exists', 'Less durable than Micro USB', 'Cables getting hard to find'],
-    detailUrl: '/usb/mini-usb'
+    slug: 'power',
+    name: 'Power',
+    connectors: [
+      {
+        id: 'barrel-jack',
+        name: 'Barrel Jack',
+        fullName: 'DC Barrel Connector',
+        description: 'Coaxial DC power connector common on electronics. The outer diameter and inner pin size vary, so matching is critical.',
+        commonDevices: ['Routers/modems', 'Laptop chargers (older)', 'LED strips', 'Arduino/electronics', 'Small appliances'],
+        limitations: ['Many incompatible sizes', 'No standard pinout', 'Polarity varies (check before connecting)', 'No data capability'],
+        detailUrl: '/power/barrel-jack'
+      },
+      {
+        id: 'iec-60320',
+        name: 'IEC-60320',
+        fullName: 'IEC 60320 Power Connectors',
+        description: 'The standard power connectors for computers and appliances. C13/C14 (3-prong) for computers, C5/C6 (cloverleaf) for laptops.',
+        commonDevices: ['Desktop computers', 'Monitors', 'Servers', 'Laptop power bricks', 'Network equipment'],
+        limitations: ['Different variants not interchangeable', 'Country-specific wall plug needed', 'Voltage/amperage ratings vary'],
+        detailUrl: '/power/iec-60320'
+      },
+      {
+        id: 'nema',
+        name: 'NEMA',
+        fullName: 'NEMA Power Plugs',
+        description: 'North American power plug standards. NEMA 5-15 is the standard 3-prong outlet, 1-15 is the 2-prong ungrounded version.',
+        commonDevices: ['All US/Canada appliances', 'Power strips', 'Extension cords', 'Wall outlets', 'UPS units'],
+        limitations: ['North America only', '120V standard (not universal)', 'Grounding third prong often bypassed unsafely'],
+        detailUrl: '/power/nema'
+      }
+    ]
   }
 ];
+
+// Flatten all connectors for the info panels
+const allConnectors = categories.flatMap(cat => cat.connectors);
 ---
 
 <div class="connector-picker">
-  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mb-8">
-    {connectors.map((connector) => (
+  <!-- Category Tabs -->
+  <div class="mb-6 border-b border-border" role="tablist" aria-label="Connector categories">
+    {categories.map((category, index) => (
       <button
         type="button"
-        class="connector-btn group flex flex-col items-center p-4 rounded-2xl border-2 border-border bg-card hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-        data-connector={connector.id}
-        aria-label={`Identify ${connector.name} connector`}
+        role="tab"
+        id={`tab-${category.slug}`}
+        aria-selected={index === 0 ? 'true' : 'false'}
+        aria-controls={`panel-${category.slug}`}
+        class:list={[
+          'category-tab px-4 py-2 text-sm border-b-2 -mb-px transition-colors',
+          index === 0
+            ? 'border-primary text-foreground'
+            : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border hover:underline cursor-pointer'
+        ]}
+        data-category={category.slug}
       >
-        <div class="connector-svg w-20 h-20 mb-3 flex items-center justify-center">
-          {connector.id === 'usb-c' && (
-            <svg viewBox="0 0 80 40" class="w-full h-auto" aria-hidden="true">
-              <rect x="5" y="10" width="70" height="20" rx="10" ry="10" fill="none" stroke="currentColor" stroke-width="3"/>
-              <rect x="15" y="16" width="50" height="8" rx="2" fill="currentColor" class="text-secondary"/>
-            </svg>
-          )}
-          {connector.id === 'usb-a' && (
-            <svg viewBox="0 0 80 50" class="w-full h-auto" aria-hidden="true">
-              <rect x="5" y="10" width="70" height="30" rx="2" fill="none" stroke="currentColor" stroke-width="3"/>
-              <rect x="12" y="17" width="56" height="16" fill="currentColor" class="text-secondary"/>
-            </svg>
-          )}
-          {connector.id === 'usb-b' && (
-            <svg viewBox="0 0 70 70" class="w-full h-auto" aria-hidden="true">
-              <path d="M10 15 L20 5 L50 5 L60 15 L60 65 L10 65 Z" fill="none" stroke="currentColor" stroke-width="3"/>
-              <rect x="18" y="25" width="34" height="30" fill="currentColor" class="text-secondary"/>
-            </svg>
-          )}
-          {connector.id === 'micro-usb' && (
-            <svg viewBox="0 0 80 30" class="w-full h-auto" aria-hidden="true">
-              <path d="M10 5 L70 5 L65 25 L15 25 Z" fill="none" stroke="currentColor" stroke-width="3"/>
-              <rect x="20" y="10" width="40" height="10" fill="currentColor" class="text-secondary"/>
-            </svg>
-          )}
-          {connector.id === 'mini-usb' && (
-            <svg viewBox="0 0 70 45" class="w-full h-auto" aria-hidden="true">
-              <path d="M10 8 L60 8 L55 37 L15 37 Z" fill="none" stroke="currentColor" stroke-width="3"/>
-              <rect x="18" y="14" width="34" height="17" fill="currentColor" class="text-secondary"/>
-            </svg>
-          )}
-        </div>
-        <span class="text-sm font-medium text-foreground">{connector.name}</span>
+        <span class:list={['tab-label', index === 0 && 'font-bold']}>{category.name}</span> <span class="text-muted-foreground">({category.connectors.length})</span>
       </button>
     ))}
   </div>
 
+  <!-- Category Panels -->
+  {categories.map((category, index) => (
+    <div
+      role="tabpanel"
+      id={`panel-${category.slug}`}
+      aria-labelledby={`tab-${category.slug}`}
+      class:list={['category-panel', index !== 0 && 'hidden']}
+      data-panel={category.slug}
+    >
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+        {category.connectors.map((connector) => (
+          <button
+            type="button"
+            class="connector-btn group flex flex-col items-center p-4 rounded-2xl border-2 border-border bg-card hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            data-connector={connector.id}
+            aria-label={`Identify ${connector.name} connector`}
+          >
+            <div class="connector-svg w-20 h-20 mb-3 flex items-center justify-center">
+              {/* USB Connectors */}
+              {connector.id === 'usb-c' && (
+                <svg viewBox="0 0 80 40" class="w-full h-auto" aria-hidden="true">
+                  <rect x="5" y="10" width="70" height="20" rx="10" ry="10" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <rect x="15" y="16" width="50" height="8" rx="2" fill="currentColor" class="text-svg-inset"/>
+                </svg>
+              )}
+              {connector.id === 'usb-a' && (
+                <svg viewBox="0 0 80 50" class="w-full h-auto" aria-hidden="true">
+                  <rect x="5" y="10" width="70" height="30" rx="2" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <rect x="12" y="17" width="56" height="16" fill="currentColor" class="text-svg-inset"/>
+                </svg>
+              )}
+              {connector.id === 'usb-b' && (
+                <svg viewBox="0 0 70 70" class="w-full h-auto" aria-hidden="true">
+                  <path d="M10 15 L20 5 L50 5 L60 15 L60 65 L10 65 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <rect x="18" y="25" width="34" height="30" fill="currentColor" class="text-svg-inset"/>
+                </svg>
+              )}
+              {connector.id === 'micro-usb' && (
+                <svg viewBox="0 0 80 30" class="w-full h-auto" aria-hidden="true">
+                  <path d="M10 5 L70 5 L65 25 L15 25 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <rect x="20" y="10" width="40" height="10" fill="currentColor" class="text-svg-inset"/>
+                </svg>
+              )}
+              {connector.id === 'mini-usb' && (
+                <svg viewBox="0 0 70 45" class="w-full h-auto" aria-hidden="true">
+                  <path d="M10 8 L60 8 L55 37 L15 37 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <rect x="18" y="14" width="34" height="17" fill="currentColor" class="text-svg-inset"/>
+                </svg>
+              )}
+              {connector.id === 'lightning' && (
+                <svg viewBox="0 0 80 30" class="w-full h-auto" aria-hidden="true">
+                  <rect x="10" y="5" width="60" height="20" rx="4" ry="4" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <rect x="18" y="10" width="44" height="10" rx="1" fill="currentColor" class="text-svg-inset"/>
+                </svg>
+              )}
+              {/* Video Connectors */}
+              {connector.id === 'hdmi' && (
+                <svg viewBox="0 0 80 50" class="w-full h-auto" aria-hidden="true">
+                  <path d="M10 10 L70 10 L70 35 L65 45 L15 45 L10 35 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <rect x="18" y="18" width="44" height="18" fill="currentColor" class="text-svg-inset"/>
+                </svg>
+              )}
+              {connector.id === 'displayport' && (
+                <svg viewBox="0 0 80 50" class="w-full h-auto" aria-hidden="true">
+                  <path d="M10 10 L70 10 L70 40 L60 50 L10 50 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <rect x="18" y="18" width="44" height="24" fill="currentColor" class="text-svg-inset"/>
+                </svg>
+              )}
+              {connector.id === 'dvi' && (
+                <svg viewBox="0 0 90 50" class="w-full h-auto" aria-hidden="true">
+                  <rect x="20" y="5" width="65" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <rect x="5" y="15" width="15" height="20" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <rect x="28" y="12" width="50" height="26" fill="currentColor" class="text-svg-inset"/>
+                </svg>
+              )}
+              {connector.id === 'vga' && (
+                <svg viewBox="0 0 80 45" class="w-full h-auto" aria-hidden="true">
+                  <path d="M5 10 Q5 5 15 5 L65 5 Q75 5 75 10 L75 35 Q75 40 65 40 L15 40 Q5 40 5 35 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <circle cx="25" cy="15" r="2" fill="currentColor" class="text-svg-inset"/>
+                  <circle cx="40" cy="15" r="2" fill="currentColor" class="text-svg-inset"/>
+                  <circle cx="55" cy="15" r="2" fill="currentColor" class="text-svg-inset"/>
+                  <circle cx="25" cy="25" r="2" fill="currentColor" class="text-svg-inset"/>
+                  <circle cx="40" cy="25" r="2" fill="currentColor" class="text-svg-inset"/>
+                  <circle cx="55" cy="25" r="2" fill="currentColor" class="text-svg-inset"/>
+                  <circle cx="25" cy="35" r="2" fill="currentColor" class="text-svg-inset"/>
+                  <circle cx="40" cy="35" r="2" fill="currentColor" class="text-svg-inset"/>
+                  <circle cx="55" cy="35" r="2" fill="currentColor" class="text-svg-inset"/>
+                </svg>
+              )}
+              {/* Audio Connectors */}
+              {connector.id === 'audio-35mm' && (
+                <svg viewBox="0 0 80 40" class="w-full h-auto" aria-hidden="true">
+                  <path d="M10 12 L55 12 L55 28 L10 28 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <path d="M55 15 L70 15 L75 20 L70 25 L55 25" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <line x1="30" y1="12" x2="30" y2="28" stroke="currentColor" stroke-width="2" class="text-svg-inset"/>
+                  <line x1="45" y1="12" x2="45" y2="28" stroke="currentColor" stroke-width="2" class="text-svg-inset"/>
+                </svg>
+              )}
+              {connector.id === 'audio-635mm' && (
+                <svg viewBox="0 0 80 50" class="w-full h-auto" aria-hidden="true">
+                  <path d="M10 10 L50 10 L50 40 L10 40 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <path d="M50 15 L65 15 L75 25 L65 35 L50 35" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <line x1="25" y1="10" x2="25" y2="40" stroke="currentColor" stroke-width="2" class="text-svg-inset"/>
+                  <line x1="40" y1="10" x2="40" y2="40" stroke="currentColor" stroke-width="2" class="text-svg-inset"/>
+                </svg>
+              )}
+              {connector.id === 'xlr' && (
+                <svg viewBox="0 0 70 70" class="w-full h-auto" aria-hidden="true">
+                  <circle cx="35" cy="35" r="30" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <path d="M35 8 L38 15 L32 15 Z" fill="currentColor" class="text-svg-inset"/>
+                  <circle cx="25" cy="30" r="4" fill="currentColor" class="text-svg-inset"/>
+                  <circle cx="45" cy="30" r="4" fill="currentColor" class="text-svg-inset"/>
+                  <circle cx="35" cy="45" r="4" fill="currentColor" class="text-svg-inset"/>
+                </svg>
+              )}
+              {connector.id === 'rca' && (
+                <svg viewBox="0 0 70 70" class="w-full h-auto" aria-hidden="true">
+                  <circle cx="35" cy="35" r="30" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <circle cx="35" cy="35" r="18" fill="none" stroke="currentColor" stroke-width="2" class="text-svg-inset"/>
+                  <circle cx="35" cy="35" r="5" fill="currentColor" class="text-svg-inset"/>
+                </svg>
+              )}
+              {connector.id === 'optical' && (
+                <svg viewBox="0 0 60 70" class="w-full h-auto" aria-hidden="true">
+                  <path d="M10 25 Q10 5 30 5 Q50 5 50 25 L50 65 L10 65 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <rect x="18" y="35" width="24" height="22" fill="currentColor" class="text-svg-inset"/>
+                </svg>
+              )}
+              {/* Power Connectors */}
+              {connector.id === 'barrel-jack' && (
+                <svg viewBox="0 0 80 40" class="w-full h-auto" aria-hidden="true">
+                  <rect x="10" y="8" width="60" height="24" rx="12" ry="12" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <line x1="25" y1="20" x2="55" y2="20" stroke="currentColor" stroke-width="4" class="text-svg-inset"/>
+                  <circle cx="40" cy="20" r="4" fill="none" stroke="currentColor" stroke-width="2" class="text-svg-inset"/>
+                </svg>
+              )}
+              {connector.id === 'iec-60320' && (
+                <svg viewBox="0 0 70 60" class="w-full h-auto" aria-hidden="true">
+                  <path d="M10 10 L60 10 L65 55 L5 55 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <rect x="15" y="20" width="12" height="25" rx="2" fill="currentColor" class="text-svg-inset"/>
+                  <rect x="43" y="20" width="12" height="25" rx="2" fill="currentColor" class="text-svg-inset"/>
+                  <rect x="29" y="35" width="12" height="10" rx="2" fill="currentColor" class="text-svg-inset"/>
+                </svg>
+              )}
+              {connector.id === 'nema' && (
+                <svg viewBox="0 0 70 70" class="w-full h-auto" aria-hidden="true">
+                  <rect x="5" y="5" width="60" height="60" rx="8" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <rect x="18" y="15" width="8" height="20" rx="2" fill="currentColor" class="text-svg-inset"/>
+                  <rect x="44" y="15" width="8" height="20" rx="2" fill="currentColor" class="text-svg-inset"/>
+                  <circle cx="35" cy="50" r="6" fill="currentColor" class="text-svg-inset"/>
+                </svg>
+              )}
+            </div>
+            <span class="text-sm font-medium text-foreground">{connector.name}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  ))}
+
   <div id="connector-info" class="hidden">
-    {connectors.map((connector) => (
+    {allConnectors.map((connector) => (
       <div class="connector-detail hidden" data-detail={connector.id}>
         <div class="rounded-2xl bg-card border border-border p-6">
           <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
@@ -169,17 +456,60 @@ const connectors: ConnectorInfo[] = [
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const buttons = document.querySelectorAll('.connector-btn');
+    const tabButtons = document.querySelectorAll('.category-tab');
+    const panels = document.querySelectorAll('.category-panel');
+    const connectorButtons = document.querySelectorAll('.connector-btn');
     const infoContainer = document.getElementById('connector-info');
     const prompt = document.getElementById('picker-prompt');
     const details = document.querySelectorAll('.connector-detail');
 
-    buttons.forEach((btn) => {
+    // Tab switching
+    tabButtons.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const category = tab.getAttribute('data-category');
+
+        // Update tab states
+        tabButtons.forEach((t) => {
+          t.classList.remove('border-primary', 'text-foreground');
+          t.classList.add('border-transparent', 'text-muted-foreground', 'hover:text-foreground', 'hover:border-border', 'hover:underline', 'cursor-pointer');
+          t.setAttribute('aria-selected', 'false');
+          const label = t.querySelector('.tab-label');
+          if (label) label.classList.remove('font-bold');
+        });
+        tab.classList.remove('border-transparent', 'text-muted-foreground', 'hover:text-foreground', 'hover:border-border', 'hover:underline', 'cursor-pointer');
+        tab.classList.add('border-primary', 'text-foreground');
+        tab.setAttribute('aria-selected', 'true');
+        const activeLabel = tab.querySelector('.tab-label');
+        if (activeLabel) activeLabel.classList.add('font-bold');
+
+        // Show/hide panels
+        panels.forEach((panel) => {
+          if (panel.getAttribute('data-panel') === category) {
+            panel.classList.remove('hidden');
+          } else {
+            panel.classList.add('hidden');
+          }
+        });
+
+        // Reset connector selection state
+        connectorButtons.forEach((b) => {
+          b.classList.remove('border-primary', 'bg-primary/5');
+          b.classList.add('border-border', 'bg-card');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        if (infoContainer) infoContainer.classList.add('hidden');
+        if (prompt) prompt.classList.remove('hidden');
+        details.forEach((detail) => detail.classList.add('hidden'));
+      });
+    });
+
+    // Connector selection
+    connectorButtons.forEach((btn) => {
       btn.addEventListener('click', () => {
         const connectorId = btn.getAttribute('data-connector');
 
-        // Update button states
-        buttons.forEach((b) => {
+        // Update button states (only within visible panel)
+        connectorButtons.forEach((b) => {
           b.classList.remove('border-primary', 'bg-primary/5');
           b.classList.add('border-border', 'bg-card');
           b.setAttribute('aria-pressed', 'false');
